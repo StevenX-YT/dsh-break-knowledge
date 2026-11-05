@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: '@local/dsh-study-html',
+  id: '@local/dsh-break-knowledge',
   factory(require) {
     const React = require('react');
     const h = React.createElement;

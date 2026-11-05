@@ -1,4 +1,4 @@
 - insert:
-    - id: dsh-study-html
-      name: '@local/dsh-study-html'
+    - id: dsh-break-knowledge
+      name: '@local/dsh-break-knowledge'
       config: {}

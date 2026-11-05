@@ -1,18 +1,27 @@
 {
-  "name": "@local/dsh-study-html",
-  "version": "1.1.0",
+  "name": "@local/dsh-break-knowledge",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
-  "description": "Turns structured study content into a self-contained interactive HTML lesson.",
+  "description": "知识破壁机：turns textbook photos into self-contained interactive HTML lessons.",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "files": ["index.js", "client.js", "cordis.patch.yml", "locale/*.json", "icon.svg", "engine/*"],
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "engine/*"
+  ],
   "dsh": {
-    "bundle": { "patch": "./cordis.patch.yml" },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
     "client": {
       "platform": "web",
       "immediately": true,
