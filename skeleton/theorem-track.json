@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "title": "TODO: 章节标题（沿用教材小节名）",
+    "course": "TODO: 课程名 · 版次",
+    "subject": "TODO: 第 X 章 第 X 节",
+    "source": "TODO: 教材 Pxx–Pyy"
+  },
+  "glossary": [
+    {"t": "TODO: 术语", "en": "TODO: english", "d": "TODO: 一句话定义，落到公式或判据上"}
+  ],
+  "points": [
+    {
+      "id": "kp1", "title": "TODO: 定理名（定理 1）", "type": "theorem", "def": "TODO: 完整条件 + 完整结论；条件不许省，下面每一步 why 都挂在它上面",
+      "why": "TODO: 说清它把哪一类原来算不出的题变成能算的，不要复述结论", "pitfalls": ["TODO: 最高频的失分点（漏乘内层导数一类）", "TODO: 哪个条件丢了结论就不成立"],
+      "prereq": [], "examWeight": 1
+    },
+    {
+      "id": "kp2", "title": "TODO: 落地操作名（怎么拆 / 怎么套）", "type": "procedure", "def": "TODO: 固定动作序列，写成「先…再…一直到…为止」",
+      "why": "TODO: 说明顺序错了会得到什么错误结果，给一个具体对比", "pitfalls": ["TODO: 最容易停手或停错的位置"],
+      "prereq": ["kp1"], "examWeight": 0.95
+    },
+    {
+      "id": "kp3", "title": "TODO: 公式表 / 常用结论名", "type": "formula", "def": "TODO: 列要背的那几条公式，或注明它们从哪条定理现推",
+      "why": "TODO: 说明这张表在解题链条上的位置（前面法则最后都落到它）", "pitfalls": ["TODO: 漏系数、漏符号、定义域条件一类"],
+      "prereq": ["kp1"], "examWeight": 0.9
+    }
+  ],
+  "segments": [
+    {
+      "id": "s1", "kp": ["kp1"], "title": "TODO: 动机段标题（为什么还要一条新法则）",
+      "blocks": [
+        {"type": "text", "md": "TODO: 摆出现有工具能算的 2–3 个式子，让读者知道自己手里有什么。"},
+        {"type": "text", "md": "TODO: 给出一个现有工具算不出的式子，指出它与上面式子的结构差别：并列还是嵌套。"},
+        {"type": "note", "md": "TODO: 一句话收口：本节补的是哪一类运算，四则法则覆盖不到它。"}
+      ],
+      "checkpoint": {"q": "TODO: 问「为什么不能套已有法则」，逼读者自己说出结构差别",
+        "hints": ["TODO: 一级指向已有法则要求的式子形式", "TODO: 二级试着往那个形式上凑，凑不出来", "TODO: 三级点出嵌套，结论留给读者"],
+        "reveal": "TODO: 点明嵌套关系，并写出硬套该法则会得到的那个不存在的式子"}
+    },
+    {
+      "id": "s2", "kp": ["kp1"], "title": "TODO: 定理段标题（定理 X：…）",
+      "blocks": [
+        {"type": "theorem", "label": "定理 1", "name": "TODO: 定理名", "statement": "TODO: 设…且…，则…，且 $公式$（条件与结论都写全）",
+         "terms": [
+           {"sym": "TODO: 符号一", "name": "TODO: 它是什么", "role": "：TODO 谁关于谁的什么率"},
+           {"sym": "TODO: 符号二", "name": "TODO: 它是什么", "role": "：TODO 谁关于谁的什么率"},
+           {"sym": "TODO: 左端整体", "name": "TODO: 结果量", "role": "：TODO 由前两项如何合成，为什么是乘不是加"}],
+         "decode": [
+           {"k": "为什么是乘不是加", "v": "TODO: 用串联/并联讲，并给一个并联反例说明那时才用加"},
+           {"k": "两个条件为什么都要", "v": "TODO: 对照公式里出现的那两项，缺一项就写不出哪个因子"}]},
+        {"type": "figure", "label": "图 1", "name": "TODO: 结构图名（只画盒子 + 箭头）", "svg": "<svg viewBox='0 0 620 170' role='img'><circle cx='90' cy='80' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='90' y='87' text-anchor='middle'>x</text><circle cx='310' cy='80' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='310' y='87' text-anchor='middle'>u</text><circle cx='530' cy='80' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='530' y='87' text-anchor='middle'>y</text><text x='200' y='60' text-anchor='middle' font-size='14'>TODO 第一级放大</text><text x='420' y='60' text-anchor='middle' font-size='14'>TODO 第二级放大</text></svg>", "caption": "TODO: 这张图讲谁放大谁、放大几倍", "note": "TODO: 看图要点：串联用乘、并联用加，配一个对照例子"}
+      ],
+      "checkpoint": {"q": "TODO: 问「为什么是乘」，或问「哪一项对应第几层」",
+        "hints": ["TODO: 一级：想想变化怎么传下去", "TODO: 二级：x 动 1 个单位，中间量动多少", "TODO: 三级：两段是接力还是并行"],
+        "reveal": "TODO: 用串联放大作答，并给出一个并联时该改用加法的对照"}
+    },
+    {
+      "id": "s3", "kp": ["kp1"], "title": "TODO: 证明段标题（教材里最费解的一段）",
+      "blocks": [
+        {"type": "text", "md": "TODO: 先说这段证明在躲什么 —— 通常是某个分母可能为零、不能直接约的隐患。"},
+        {"type": "proof", "label": "证明（教材 Pxx）", "takeaway": "TODO: 抽出可复用的套路：这段证明的手法还能用在哪些题上", "steps": [
+          {"op": "TODO: 第 1 步，写清量的定义（谁有增量、增量是什么）", "why": "TODO: 说明为什么必须先量出这个中间量，后面的推理全依赖它"},
+          {"op": "TODO: 第 2 步，把外层函数的自变量写对，而不是沿用 x", "why": "TODO: 指出这里最容易看错的下标，写错会让后面的取极限全错"},
+          {"op": "TODO: 第 3 步，做那次「把商改写成积」的变形", "why": "TODO: 说明这一步换来了什么（摆脱分母），以及付出了什么"},
+          {"op": "TODO: 第 4 步，单独补上分母为零的情形", "why": "TODO: 说明不补这一条时，前面哪一步失效、整段推导从哪塌"},
+          {"op": "TODO: 第 5 步，取极限，指出哪一项消失", "why": "TODO: 说清消失的原因（高阶小量乘有界量），不要只写「极限为 0」"}]},
+        {"type": "terms", "label": "拆项", "name": "TODO: 这条式子每一块是什么", "items": [
+          {"sym": "TODO: 左边一项", "name": "TODO: 它表示的事实", "role": "：TODO 一句话说清这一块算什么"},
+          {"sym": "TODO: 右边第一项", "name": "TODO: 线性主部", "role": "：TODO 描述它的地位（是增量的主要部分）"},
+          {"sym": "TODO: 右边第二项", "name": "TODO: 高阶小量", "role": "：TODO 说明它为什么会在取极限时被甩掉"}]}
+      ],
+      "checkpoint": {"q": "TODO: 问「哪一步不能省」，或「不处理某种退化情形会怎样」",
+        "hints": ["TODO: 一级：回到第 N 步是怎么来的", "TODO: 二级：那一步的前提是什么", "TODO: 三级：前提被破坏时等式失效"],
+        "reveal": "TODO: 指出缺口在第几步、补丁补的是什么、不补会出现哪种退化"}
+    },
+    {
+      "id": "s4", "kp": ["kp2"], "title": "TODO: 例题段标题（法则真正难的地方）",
+      "blocks": [
+        {"type": "example", "label": "例 x.x.1", "name": "TODO: 本例题型名（两层 / 带根号）", "stem": "TODO: 给一个只有两层的式子", "takeaway": "TODO: 一句话：这题学到什么可复用的判断", "solution": [
+          {"op": "TODO: 写出分解（外层什么、内层什么）", "why": "TODO: 说明判断外层的依据（最后执行的那一步），这步定错后面全错"},
+          {"op": "TODO: 外层导数 × 内层导数", "why": "TODO: 逐项说明每个因子从哪来，点名最容易漏的那个"},
+          {"op": "TODO: 把中间变量换回原变量并约简", "why": "TODO: 说明答案里不能留中间变量，以及约简到什么程度算完"}]},
+        {"type": "example", "label": "例 x.x.2", "name": "TODO: 本例题型名（三层 / 内层还是乘积）", "stem": "TODO: 给一个内层结构更复杂的式子", "takeaway": "TODO: 抽出这类题的信号与固定动作", "solution": [
+          {"op": "TODO: 逐层写出分解（几层就写几行）", "why": "TODO: 说明每层剥离的判断句，读者要能照着报出来"},
+          {"op": "TODO: 各层导数连乘", "why": "TODO: 指出内层该切到乘积法则时，别因为正在用链式就忘了"},
+          {"op": "TODO: 化简成最简形式", "why": "TODO: 说明化简的收益（与标准答案对照、避免复核出错）"}]},
+        {"type": "note", "md": "TODO: 抄一句教材的操作纪律（逐层求导不许遗漏 / 一求到底），并说明省书写不等于省思考。"}
+      ],
+      "checkpoint": {"q": "TODO: 问「两种长相相近的式子拆法有何不同」",
+        "hints": ["TODO: 一级：先补全括号再判断", "TODO: 二级：看最后一个动作是什么", "TODO: 三级：外层不同，连乘的因子就不同"],
+        "reveal": "TODO: 并排写出两个式子的拆法与结果，指出它们乘上的因子完全不同"}
+    },
+    {
+      "id": "s5", "kp": ["kp3"], "title": "TODO: 公式表段标题",
+      "blocks": [
+        {"type": "text", "md": "TODO: 说明这张表在教材第几页、承担什么角色（所有法则最后都落到它）。"},
+        {"type": "table", "label": "表", "name": "TODO: 表名", "head": ["函数", "导数", "记忆点"], "decode": [{"k": "背的优先级", "v": "TODO: 指出哪几条用得最多，先把它们练到条件反射，其余按组推"}], "rows": [
+          ["TODO: 基本函数一", "TODO: 它的导数", "TODO: 这条最常错在哪"],
+          ["TODO: 基本函数二", "TODO: 它的导数", "TODO: 一条可复述的记法"],
+          ["TODO: 基本函数三", "TODO: 它的导数", "TODO: 定义域或分段条件"]]}
+      ],
+      "checkpoint": {"q": "TODO: 不看表写出一组公式，并用一句话概括这组的规律",
+        "hints": ["TODO: 一级：先给公式分组", "TODO: 二级：看每组带不带根号、有没有负号", "TODO: 三级：按组报出四条"],
+        "reveal": "TODO: 列出四条公式，再给一句能复述的分组规律"}
+    }
+  ],
+  "items": [
+    {"id": "q1", "kp": ["kp1"], "kind": "single", "stem": "TODO: 考成立条件 / 适用范围", "answer": 2, "options": ["TODO: 只满足一半条件", "TODO: 另一处漏条件", "TODO: 条件完整的正确项", "TODO: 把可导换成连续"], "hint": ["TODO: 一级：公式里出现了哪两个导数", "TODO: 二级：两项都要存在才能相乘", "TODO: 三级：缺一个就不成立"], "distractors": [{"opt": 0, "mis": "concept"}, {"opt": 1, "mis": "concept"}, {"opt": 3, "mis": "concept"}]},
+    {"id": "q2", "kp": ["kp2"], "kind": "judge", "stem": "TODO: 一个漏乘内层导数的错误等式", "answer": false, "hint": ["TODO: 一级：这式子是复合函数吗", "TODO: 二级：内层导数是多少", "TODO: 三级：链式要求两个导数相乘"], "distractors": []},
+    {"id": "q3", "kp": ["kp2"], "kind": "blank", "stem": "TODO: 写出某个基本函数的求导结果（____）", "answer": ["TODO: 标准答案", "TODO: 等价写法一", "TODO: 等价写法二"], "hint": ["TODO: 一级", "TODO: 二级", "TODO: 三级"], "distractors": []},
+    {"id": "q4", "kp": ["kp2"], "kind": "numeric", "stem": "TODO: 给定具体式子与取值点，求导数值", "answer": 12, "tolerance": 0.001, "hint": ["TODO: 一级：先写外层导数", "TODO: 二级：再乘内层导数", "TODO: 三级：最后代入数值"], "distractors": []},
+    {"id": "q5", "kp": ["kp2"], "kind": "stepwise", "stem": "TODO: 问正确的分解顺序（由外到内）", "answer": 0, "options": ["TODO: 正确顺序", "TODO: 内外层顺序对调", "TODO: 把最外层放到最里", "TODO: 把常数因子当成一层"], "hint": ["TODO: 一级：最后执行的动作是最外层", "TODO: 二级：按执行顺序写", "TODO: 三级：由外到内逐层"], "distractors": [{"opt": 1, "mis": "concept"}, {"opt": 2, "mis": "concept"}, {"opt": 3, "mis": "concept"}]},
+    {"id": "q6", "kp": ["kp1", "kp2"], "kind": "findError", "stem": "TODO: 一段三步推理，其中一步漏了条件或漏了因子", "answer": 1, "options": ["TODO: 第 ① 步（无误）", "TODO: 第 ② 步（真正的错处）", "TODO: 第 ③ 步（无误）", "TODO: 没有错误"], "hint": ["TODO: 一级：每步对照法则要求", "TODO: 二级：第 ② 步少了什么", "TODO: 三级：少的就是那个因子"], "distractors": [{"opt": 0, "mis": "reading"}, {"opt": 2, "mis": "concept"}]},
+    {"id": "q7", "kp": ["kp1"], "kind": "short", "stem": "TODO: 用自己的话说明某条件为什么不能删（答出关键理由即可）", "keywords": ["TODO: 关键词一", "TODO: 关键词二", "TODO: 关键词三", "TODO: 关键词四"],
+     "model": "TODO: 参考答案，两句话：条件 → 推导里对应的那一步 → 删掉后的反例", "hint": ["TODO: 一级", "TODO: 二级", "TODO: 三级"], "distractors": []}
+  ]
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>{{TITLE}}</title>
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 id="title"></h1>
+    <div class="sub" id="sub"></div>
+  </header>
+
+  <div id="chapters"></div>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-view="guide" aria-selected="true">讲解</button>
+    <button class="tab" role="tab" data-view="quiz" aria-selected="false">检验 <span class="badge" id="badge-quiz" style="display:none"></span></button>
+    <button class="tab" role="tab" data-view="report" aria-selected="false">报告</button>
+  </nav>
+
+  <main id="main"></main>
+
+  <div id="io" class="io" hidden>
+    <textarea id="io-text" rows="6" spellcheck="false" placeholder="进度数据"></textarea>
+    <div class="btn-row">
+      <button class="btn primary" id="io-apply">应用</button>
+      <button class="btn" id="io-close">关闭</button>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>{{FOOTER}}</span>
+    <span>
+      <a class="link" id="export">导出进度</a> ·
+      <a class="link" id="import">导入进度</a> ·
+      <a class="link" id="clear">清空</a>
+    </span>
+  </footer>
+</div>
+
+<script id="study-data" type="application/json">{{DATA}}</script>
+<script>
+{{JS}}
+</script>
+</body>
+</html>

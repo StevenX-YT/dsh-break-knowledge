@@ -1,0 +1,12 @@
+# 依赖
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+
+# 生成产物（学习页 HTML 是构建结果，不入库）
+out/
+
+# 临时与系统文件
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1350 @@
+{
+  "meta": {
+    "title": "复合函数及反函数的导数",
+    "course": "高等数学（上册 · 第 4 版）",
+    "subject": "第 2 章 导数与微分 · 第 3 节",
+    "source": "教材 P73–78"
+  },
+  "glossary": [
+    {
+      "t": "链式法则",
+      "en": "chain rule",
+      "d": "复合函数求导法则：dy/dx = dy/du · du/dx。"
+    },
+    {
+      "t": "复合函数",
+      "en": "composite function",
+      "d": "由 y = f(u) 与 u = φ(x) 串成的 y = f[φ(x)]。"
+    },
+    {
+      "t": "中间变量",
+      "en": "intermediate variable",
+      "d": "复合过程中起桥接作用的 u（或 v）。"
+    },
+    {
+      "t": "反函数",
+      "en": "inverse function",
+      "d": "若 y = f(x) 与 x = φ(y) 互逆，则互为反函数。"
+    },
+    {
+      "t": "无穷小",
+      "en": "infinitesimal",
+      "d": "极限为 0 的变量。证明链式法则的关键工具。"
+    }
+  ],
+  "points": [
+    {
+      "id": "kp1",
+      "title": "链式法则（定理 1）",
+      "type": "theorem",
+      "def": "设 u = φ(x) 在点 x 处可导，y = f(u) 在对应点 u = φ(x) 处也可导，则 y = f[φ(x)] 在点 x 处可导，且 dy/dx = f'(u)·φ'(x)。",
+      "why": "它把「嵌套」拆成「逐层求导再相乘」。关键在于：外层 f 根本不知道 x 存在，它只看到 u 变了多少；所以必须先把 u 的变化率算出来，再乘以外层对 u 的变化率。",
+      "pitfalls": [
+        "漏乘内层导数 φ'(x) —— 这是最高频的失分点。",
+        "两层都要可导，缺一个结论就不成立。"
+      ],
+      "prereq": [],
+      "examWeight": 1
+    },
+    {
+      "id": "kp2",
+      "title": "复合函数的分解",
+      "type": "procedure",
+      "def": "从最外层往里剥：每剥一层就问「整体是哪个基本初等函数」，剥到自变量为止。",
+      "why": "链式法则本身只有一句话，真正花时间的是拆。拆错层的典型后果是：把 sin²x 当成 sin(x²)，两层导数完全对调。",
+      "pitfalls": [
+        "sin²x = (sin x)²，外层是平方；sin(x²) 外层才是 sin。",
+        "剥到一半就停手，会漏掉最内层的导数。"
+      ],
+      "prereq": [
+        "kp1"
+      ],
+      "examWeight": 0.95
+    },
+    {
+      "id": "kp3",
+      "title": "多层复合",
+      "type": "procedure",
+      "def": "对 y=f(u)、u=φ(v)、v=ψ(x)：dy/dx = f'(u)·φ'(v)·ψ'(x)。层数可以任意多。",
+      "why": "层数越多，越容易漏乘中间某层。三层复合漏一层，结果会差一个数量级而不是一点。",
+      "pitfalls": [
+        "中间层遗漏：三层只乘两层。",
+        "某一层还是复合结构却没继续拆。"
+      ],
+      "prereq": [
+        "kp1",
+        "kp2"
+      ],
+      "examWeight": 0.9
+    },
+    {
+      "id": "kp4",
+      "title": "反函数的求导法则（定理 2）",
+      "type": "theorem",
+      "def": "若单调连续函数 x = φ(y) 在 y 处可导且 φ'(y) ≠ 0，则反函数 y = f(x) 在对应点可导，且 f'(x) = 1/φ'(y)。",
+      "why": "反函数的图像是原函数关于直线 y=x 的镜像。镜像会把「横向走 1 格、纵向走 k 格」翻成「横向走 k 格、纵向走 1 格」——斜率从 k 变成 1/k。这就是「倒数」的几何来源。",
+      "pitfalls": [
+        "φ'(y) ≠ 0 不能丢：原函数切线水平时，反函数切线竖直，斜率不存在。",
+        "算出 1/φ'(y) 后必须把 y 换回 x，否则答案里残留中间变量。"
+      ],
+      "prereq": [
+        "kp1"
+      ],
+      "examWeight": 0.85
+    },
+    {
+      "id": "kp5",
+      "title": "反三角函数的导数",
+      "type": "formula",
+      "def": "(arcsin x)' = 1/√(1−x²)，(arccos x)' = −1/√(1−x²)，(arctan x)' = 1/(1+x²)，(arccot x)' = −1/(1+x²)。",
+      "why": "四个公式都能从定理 2 当场推出来，不需要硬背结构，只需要记住「哪组带根号、哪个带负号」。",
+      "pitfalls": [
+        "arcsin/arccos 带根号，arctan/arccot 不带。",
+        "带 c 的两个（arccos、arccot）多一个负号。"
+      ],
+      "prereq": [
+        "kp4"
+      ],
+      "examWeight": 0.9
+    },
+    {
+      "id": "kp6",
+      "title": "基本求导公式表",
+      "type": "fact",
+      "def": "六类共二十余条：常数、幂、指数、对数、三角、反三角，外加双曲与反双曲。",
+      "why": "所有求导最终落到这张表。表不熟，链式法则拆得再对也算不出结果。",
+      "pitfalls": [
+        "(aˣ)' = aˣ ln a，漏 ln a 是最常见的错。",
+        "(ln|x|)' = 1/x 在 x<0 也成立，别只记 (ln x)'。"
+      ],
+      "prereq": [],
+      "examWeight": 0.9
+    },
+    {
+      "id": "kp7",
+      "title": "相关变化率",
+      "type": "procedure",
+      "def": "两个量都由 t 决定时，用链式法则把已知变化率传给未知变化率，如 dV/dt = dV/dr · dr/dt。",
+      "why": "这是链式法则最典型的应用题形态。核心陷阱是：所有量都必须先看成 t 的函数再求导，提前代数值会让导数变成 0。",
+      "pitfalls": [
+        "把 r 当常数求导，结果恒为 0。",
+        "先代数值再求导。"
+      ],
+      "prereq": [
+        "kp1",
+        "kp3"
+      ],
+      "examWeight": 0.7
+    }
+  ],
+  "segments": [
+    {
+      "id": "s1",
+      "kp": [
+        "kp1"
+      ],
+      "title": "为什么还需要一条新法则",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "目前为止手里的工具只有两样：导数的定义，以及和、差、积、商的四则法则。靠它们，$x^3$、$\\sin x+e^x$、$\\frac{x}{1+x}$ 都能求。"
+        },
+        {
+          "type": "text",
+          "md": "但 $\\ln\\sin x$ 求不出来。它不是两个函数相加，也不是相乘 —— 它是**一个函数套进另一个函数**：先把 $x$ 送进 $\\sin$，再把结果送进 $\\ln$。"
+        },
+        {
+          "type": "text",
+          "md": "两者的区别看「执行顺序」：\n**并列**　$\\sin x + e^x$　→　先各算各的，再相加；$\\sin x\\cdot e^x$ → 先各算各的，再相乘。\n**嵌套**　$\\ln(\\sin x)$　→　先算 $\\sin x$，结果整个喂给 $\\ln$。$e^{3x^2-4}$ → 先算 $3x^2-4$，结果整个喂给 $e^{(\\cdot)}$。\n判断方法：能不能写成 $f(x)+g(x)$ 或 $f(x)g(x)$？能，就是并列；不能，就是嵌套。"
+        },
+        {
+          "type": "note",
+          "md": "四则法则处理的是「两个函数并排放」，处理不了「一个塞进另一个」。本节补的就是这一条。"
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么 $\\ln\\sin x$ 不能用乘积法则求导？",
+        "hints": [
+          "乘积法则要求式子能写成 $u(x)\\cdot v(x)$。",
+          "$\\ln\\sin x$ 能拆成两个函数相乘吗？拆不出来。",
+          "$\\sin x$ 是 $\\ln$ 的自变量本身，不是和它相乘的另一个因子。"
+        ],
+        "reveal": "$\\ln\\sin x$ 里，$\\sin x$ 是 $\\ln$ 的**输入**，不是因子。套乘积法则会得到 $\\frac{1}{\\sin x}\\cdot\\sin x+\\ln x\\cdot\\cos x$ 这种不存在的式子 —— 因为 $\\ln x$ 根本不在这道题里。"
+      }
+    },
+    {
+      "id": "s2",
+      "kp": [
+        "kp1"
+      ],
+      "title": "定理 1：链式法则",
+      "blocks": [
+        {
+          "type": "theorem",
+          "label": "定理 1",
+          "name": "复合函数的求导法则",
+          "statement": "设 $u=\\varphi(x)$ 在点 $x$ 处可导，$y=f(u)$ 在对应点 $u=\\varphi(x)$ 处也可导，则 $y=f[\\varphi(x)]$ 在点 $x$ 处可导，且 $$\\frac{dy}{dx}=f'(u)\\cdot\\varphi'(x)=\\frac{dy}{du}\\cdot\\frac{du}{dx}.$$",
+          "terms": [
+            {
+              "sym": "$\\varphi'(x)$",
+              "name": "内层导数",
+              "role": "：$u$ 关于 $x$ 的变化率。回答「$x$ 动一点，$u$ 跟着动多少」。"
+            },
+            {
+              "sym": "$f'(u)$",
+              "name": "外层导数",
+              "role": "：$y$ 关于 $u$ 的变化率。回答「$u$ 动一点，$y$ 跟着动多少」。"
+            },
+            {
+              "sym": "$\\frac{dy}{dx}$",
+              "name": "总导数",
+              "role": "：$y$ 关于 $x$ 的变化率。等于上面两个变化率**连乘**——因为变化是接力传递的。"
+            }
+          ],
+          "decode": [
+            {
+              "k": "为什么是相乘不是相加",
+              "v": "$x$ 动 $\\Delta x$，$u$ 就动 $\\varphi'(x)\\Delta x$；$u$ 动了这么多，$y$ 才动 $f'(u)\\times$ 这个量。两次「放大」叠加，所以乘。相加会发生在两个量**并联**影响同一个结果时（比如 $y=u+v$），不是串联。"
+            },
+            {
+              "k": "两个条件为什么都要",
+              "v": "缺内层可导，$\\varphi'(x)$ 写不出来；缺外层可导，$f'(u)$ 写不出来。公式里这两项都在，所以两个都得有。"
+            },
+            {
+              "k": "「约分」为什么不算证明",
+              "v": "$\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}$ 看起来像把 $du$ 约掉了，但 $\\frac{dy}{dx}$ 是**导数记号**（一个整体），不是真的分数，不能约。真按分数操作的话，$\\Delta u=0$ 时分母为零，整个式子就崩了 —— 这正是教材要专门写一段证明的原因。"
+            }
+          ]
+        },
+        {
+          "type": "figure",
+          "label": "图 1",
+          "name": "链式法则 = 逐级放大",
+          "svg": "<svg viewBox='0 0 620 215' role='img'><defs><marker id='a1' markerWidth='8' markerHeight='8' refX='7' refY='4' orient='auto'><path d='M0,0 L8,4 L0,8 z' fill='var(--muted)'/></marker></defs><circle cx='70' cy='90' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='70' y='97' text-anchor='middle' font-size='19' fill='var(--text)'>x</text><circle cx='310' cy='90' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='310' y='97' text-anchor='middle' font-size='19' fill='var(--text)'>u</text><circle cx='550' cy='90' r='28' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='2'/><text x='550' y='97' text-anchor='middle' font-size='19' fill='var(--text)'>y</text><line x1='100' y1='90' x2='277' y2='90' stroke='var(--muted)' stroke-width='2' marker-end='url(#a1)'/><line x1='340' y1='90' x2='517' y2='90' stroke='var(--muted)' stroke-width='2' marker-end='url(#a1)'/><text x='188' y='70' text-anchor='middle' font-size='15' fill='var(--muted)'>放大 φ′(x) 倍</text><text x='428' y='70' text-anchor='middle' font-size='15' fill='var(--muted)'>放大 f′(u) 倍</text><path d='M70 140 L70 158 L550 158 L550 140' fill='none' stroke='var(--accent)' stroke-width='1.5'/><text x='310' y='188' text-anchor='middle' font-size='15' fill='var(--accent)'>总放大 = 两次放大相乘</text></svg>",
+          "caption": "把 $x\\to u\\to y$ 想成两段传动。第一段把 $\\Delta x$ 放大成 $\\Delta u$，第二段把 $\\Delta u$ 放大成 $\\Delta y$。",
+          "note": "这一路都是「乘」。如果题目是 $y=u+v$（两个中间量**并排**影响 $y$），那才是「加」。串并联决定乘还是加。"
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么链式法则是「乘」而不是「加」？",
+        "hints": [
+          "想想变化是怎么传下去的：$x$ 先影响 $u$，$u$ 再影响 $y$。",
+          "$x$ 动 1，$u$ 动 $\\varphi'(x)$；$u$ 动 $\\varphi'(x)$，$y$ 动 $f'(u)\\cdot\\varphi'(x)$。",
+          "两段是接力，不是并行。"
+        ],
+        "reveal": "因为两段放大是**串联**的：先按 $\\varphi'(x)$ 放大一次，结果再按 $f'(u)$ 放大一次。串联用乘，并联用加 —— 这和物理里串联电阻相加、并联电阻取倒数是同一个道理。"
+      }
+    },
+    {
+      "id": "s3",
+      "kp": [
+        "kp1"
+      ],
+      "title": "定理 1 的证明：教材里最费解的一段",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "先说出这段证明到底在躲什么。最省事的证法是写 $\\frac{\\Delta y}{\\Delta x}=\\frac{\\Delta y}{\\Delta u}\\cdot\\frac{\\Delta u}{\\Delta x}$，再取极限。但这个式子有一个致命前提：**$\\Delta u\\neq 0$**。"
+        },
+        {
+          "type": "text",
+          "md": "改造的关键是这条等价关系：如果 $\\lim\\limits_{\\Delta u\\to 0}\\frac{\\Delta y}{\\Delta u}=f'(u)$，那么可以写成 $\\frac{\\Delta y}{\\Delta u}=f'(u)+\\alpha(\\Delta u)$，其中 $\\alpha$ 是无穷小。把商变成「一个数加一个趋近于 0 的量」，下一步两边乘 $\\Delta u$ 就再也不需要除法了。"
+        },
+        {
+          "type": "proof",
+          "label": "证明（教材 P73）",
+          "steps": [
+            {
+              "op": "设 $x$ 有增量 $\\Delta x$，则 $u=\\varphi(x)$ 有增量 $\\Delta u=\\varphi(x+\\Delta x)-\\varphi(x)$。",
+              "why": "$\\Delta u$ 是中间量 $u$ 自己动了多少。必须先量出它，因为 $y$ 的变化完全由 $u$ 的变化引起 —— $f$ 根本看不见 $x$，它只看得见 $u$。"
+            },
+            {
+              "op": "于是 $y=f(u)$ 有对应增量 $\\Delta y=f(u+\\Delta u)-f(u)$。",
+              "why": "注意这里的自变量是 $u+\\Delta u$，不是 $x+\\Delta x$。外层函数只认 $u$ 这个入口，$x$ 是通过 $u$ 才影响到它的。"
+            },
+            {
+              "op": "因 $y=f(u)$ 在 $u$ 处可导，故 $\\lim\\limits_{\\Delta u\\to 0}\\frac{\\Delta y}{\\Delta u}=f'(u)$。",
+              "why": "这里限的是 $\\Delta u\\to0$，不是 $\\Delta x\\to0$。整段证明最容易看错的就是这个下标：外层导数的定义域是 $u$，所以取极限也只能对着 $u$ 的增量取。"
+            },
+            {
+              "op": "由极限与无穷小的关系，有 $\\frac{\\Delta y}{\\Delta u}=f'(u)+\\alpha(\\Delta u)$，其中 $\\lim\\limits_{\\Delta u\\to0}\\alpha(\\Delta u)=0$。",
+              "why": "这一步在偷换概念：把一个「除以 $\\Delta u$ 的商」改写成「一个数加上一个小尾巴」。改写后，$\\Delta u$ 从分母挪到了两个分子的位置上 —— 于是下一步就可以两边同乘 $\\Delta u$，彻底摆脱分母。"
+            },
+            {
+              "op": "当 $\\Delta u\\neq0$ 时，两边乘 $\\Delta u$ 得 $\\Delta y=f'(u)\\Delta u+\\alpha(\\Delta u)\\Delta u$。",
+              "why": "这是纯乘法，$\\Delta u=0$ 也不怕。左边 $\\Delta y$ 此刻被表达成了 $\\Delta u$ 的线性部分加上一个高阶小量 $\\alpha\\Delta u$。"
+            },
+            {
+              "op": "当 $\\Delta u=0$ 时，规定 $\\alpha(\\Delta u)=0$，此时 $\\Delta y=f(u+\\Delta u)-f(u)=0$，故上式对 $\\Delta u=0$ 也成立。",
+              "why": "补漏洞。$\\Delta u=0$ 意味着 $u$ 没动，所以 $y$ 也没动，$\\Delta y=0$；右边 $f'(u)\\cdot0+0\\cdot0=0$。两边都是 0，等式成立。没有这一条，前一步只在 $\\Delta u\\neq0$ 时有效。"
+            },
+            {
+              "op": "用 $\\Delta x\\neq0$ 除两端，得 $\\frac{\\Delta y}{\\Delta x}=f'(u)\\frac{\\Delta u}{\\Delta x}+\\alpha(\\Delta u)\\frac{\\Delta u}{\\Delta x}$。",
+              "why": "这次除的是 $\\Delta x$，而增量 $\\Delta x$ 按定义就非零，可以放心除。注意此时右边已经没有除以 $\\Delta u$ 的运算了。"
+            },
+            {
+              "op": "因 $u=\\varphi(x)$ 在 $x$ 处可导，故它在 $x$ 处连续，所以 $\\lim\\limits_{\\Delta x\\to0}\\Delta u=0$。",
+              "why": "可导必连续；连续的意思正是「$x$ 的增量趋于 0 时，函数的增量也趋于 0」。它唯一的作用，是让后面那个 $\\alpha(\\Delta u)$ 能把下标从 $\\Delta x$ 换成 $\\Delta u$ —— 因为 $\\alpha$ 只在 $\\Delta u\\to0$ 时才有已知极限 0。"
+            },
+            {
+              "op": "因此 $\\lim\\limits_{\\Delta x\\to0}\\alpha(\\Delta u)=\\lim\\limits_{\\Delta u\\to0}\\alpha(\\Delta u)=0$，且 $\\lim\\limits_{\\Delta x\\to0}\\frac{\\Delta u}{\\Delta x}=\\varphi'(x)$。",
+              "why": "前一半靠上一步做变量替换（$\\Delta x\\to0$ 时 $\\Delta u\\to0$，所以可以直接把下标换掉）；后一半就是内层导数的定义。"
+            },
+            {
+              "op": "于是 $\\frac{dy}{dx}=\\lim\\limits_{\\Delta x\\to0}\\frac{\\Delta y}{\\Delta x}=f'(u)\\cdot\\varphi'(x)+0\\cdot\\varphi'(x)=f'(u)\\varphi'(x)$。",
+              "why": "两项分别取极限。第二项是「趋于 0 的量」乘「趋于 $\\varphi'(x)$ 的量」，极限为 0，于是整项消失，只剩第一项。"
+            }
+          ],
+          "takeaway": "这段证明的套路可以复用到所有「分母可能为零」的场合：先把商改写成「极限 + 无穷小」的形式，变成乘法，再单独规定分母为零时无穷小取 0，最后补一句「等式仍成立」。"
+        },
+        {
+          "type": "terms",
+          "label": "拆项",
+          "name": "式 (2-4) 里每一块是什么",
+          "items": [
+            {
+              "sym": "$\\Delta y$",
+              "name": "外层的真实增量",
+              "role": "：$y$ 实际变了多少。"
+            },
+            {
+              "sym": "$f'(u)\\Delta u$",
+              "name": "线性主部",
+              "role": "：如果 $y$ 关于 $u$ 是严格直线，增量就该是这么多。这是增量的「主要部分」。"
+            },
+            {
+              "sym": "$\\alpha(\\Delta u)\\Delta u$",
+              "name": "高阶小量",
+              "role": "：真实增量和线性主部的差。它比 $\\Delta u$ 更快地趋于 0（因为还要再乘一个趋于 0 的 $\\alpha$），所以取极限时会被甩掉。"
+            }
+          ]
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么第 6 步要单独处理 $\\Delta u=0$？不处理会怎样？",
+        "hints": [
+          "看第 5 步是怎么来的：两边乘 $\\Delta u$。",
+          "第 4 步的前提是 $\\frac{\\Delta y}{\\Delta u}$ 有意义，也就是 $\\Delta u\\neq0$。",
+          "$\\Delta u=0$ 时，第 4 步的等式根本没被证明过。"
+        ],
+        "reveal": "因为第 4 步是从「除以 $\\Delta u$ 的商」变过来的，只在 $\\Delta u\\neq0$ 时有意义。若 $u$ 在某段上不动（$\\Delta u=0$ 而 $\\Delta x\\neq0$），第 4 步就失效了，后面的推导全部塌掉。第 6 步用「$\\Delta u=0$ 时两边都是 0」把这个缺口单独补上。"
+      }
+    },
+    {
+      "id": "s4",
+      "kp": [
+        "kp2"
+      ],
+      "title": "怎么拆：链式法则真正难的地方",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "法则只有一句话，难在拆。拆法是固定的：**从最外层往里剥**，每剥一层问一次「整体是哪个基本初等函数」。"
+        },
+        {
+          "type": "figure",
+          "label": "图 2",
+          "name": "以 $y=\\ln\\cos(2e^x)$ 为例的剥法",
+          "svg": "<svg viewBox='0 0 620 360' role='img'><defs><marker id='a2' markerWidth='8' markerHeight='8' refX='4' refY='7' orient='auto'><path d='M0,0 L8,0 L4,8 z' fill='var(--muted)'/></marker></defs><rect x='150' y='10' width='300' height='46' rx='10' fill='var(--accent-soft)' stroke='var(--accent)' stroke-width='1.5'/><text x='300' y='40' text-anchor='middle' font-size='17' fill='var(--text)'>y = ln cos(2eˣ)</text><text x='140' y='40' text-anchor='end' font-size='13' fill='var(--muted)'>整体</text><line x1='300' y1='58' x2='300' y2='86' stroke='var(--muted)' stroke-width='1.5' marker-end='url(#a2)'/><text x='310' y='78' font-size='12' fill='var(--muted)'>最外层是 ln</text><rect x='150' y='90' width='300' height='46' rx='10' fill='var(--card)' stroke='var(--accent)' stroke-width='1.5'/><text x='300' y='120' text-anchor='middle' font-size='17' fill='var(--text)'>y = ln u</text><text x='140' y='120' text-anchor='end' font-size='13' fill='var(--muted)'>第 1 层</text><text x='462' y='120' font-size='13' fill='var(--blk-color,#4f46e5)'>导数 1/u</text><line x1='300' y1='138' x2='300' y2='166' stroke='var(--muted)' stroke-width='1.5' marker-end='url(#a2)'/><text x='310' y='158' font-size='12' fill='var(--muted)'>里面是 cos</text><rect x='150' y='170' width='300' height='46' rx='10' fill='var(--card)' stroke='var(--accent)' stroke-width='1.5'/><text x='300' y='200' text-anchor='middle' font-size='17' fill='var(--text)'>u = cos v</text><text x='140' y='200' text-anchor='end' font-size='13' fill='var(--muted)'>第 2 层</text><text x='462' y='200' font-size='13' fill='var(--blk-color,#4f46e5)'>导数 −sin v</text><line x1='300' y1='218' x2='300' y2='246' stroke='var(--muted)' stroke-width='1.5' marker-end='url(#a2)'/><text x='310' y='238' font-size='12' fill='var(--muted)'>最里面是 2eˣ</text><rect x='150' y='250' width='300' height='46' rx='10' fill='var(--card)' stroke='var(--accent)' stroke-width='1.5'/><text x='300' y='280' text-anchor='middle' font-size='17' fill='var(--text)'>v = 2eˣ</text><text x='140' y='280' text-anchor='end' font-size='13' fill='var(--muted)'>第 3 层</text><text x='462' y='280' font-size='13' fill='var(--blk-color,#4f46e5)'>导数 2eˣ</text><text x='300' y='330' text-anchor='middle' font-size='14' fill='var(--muted)'>三个导数连乘 = (1/u)·(−sin v)·(2eˣ)</text></svg>",
+          "caption": "剥到「自变量 $x$ 出现在一个基本初等函数里」为止。四个框对应三层复合，外加一个「整体」。",
+          "note": "判断剥没剥到底的标准：最后那一层是不是不能再拆了。$2e^x$ 还能拆成 $2\\cdot e^x$，但乘常数不影响复合结构，所以到此为止。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.1",
+          "name": "两层",
+          "stem": "设 $y=3\\sin 5x$，求 $y'$。",
+          "solution": [
+            {
+              "op": "拆：$y=3\\sin u$，$u=5x$。",
+              "why": "为什么外层是 $3\\sin u$ 而不是 $\\sin(3x)$？因为乘法是最后一件事：先把 $x$ 乘 5，再取 $\\sin$，最后乘 3。最外层永远是**最后执行**的那一步。"
+            },
+            {
+              "op": "$y'=3\\cos u\\cdot 5$。",
+              "why": "$3\\sin u$ 关于 $u$ 求导得 $3\\cos u$（常数 3 保留）；$5x$ 关于 $x$ 求导得 5。"
+            },
+            {
+              "op": "$=15\\cos 5x$。",
+              "why": "把 $u$ 换回 $5x$。答案里不能留中间变量。"
+            }
+          ],
+          "takeaway": "常数因子不会影响复合结构，只跟着乘出来。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.2",
+          "name": "带根号",
+          "stem": "设 $y=\\sqrt{4x^2+3}$，求 $y'$。",
+          "solution": [
+            {
+              "op": "拆：$y=\\sqrt u$，$u=4x^2+3$。",
+              "why": "最后执行的是开方，所以外层是根号，里面一整坨都算内层。"
+            },
+            {
+              "op": "$y'=\\frac{1}{2\\sqrt u}\\cdot 8x$。",
+              "why": "$(\\sqrt u)'=\\frac{1}{2\\sqrt u}$；内层 $(4x^2+3)'=8x$ —— 平方项降一次幂、系数乘 2，常数项导数为 0。漏掉这个 $8x$ 是这里最常见的错。"
+            },
+            {
+              "op": "$=\\frac{4x}{\\sqrt{4x^2+3}}$。",
+              "why": "把分子分母里的 2 约掉，再把 $u$ 换回原式。"
+            }
+          ],
+          "takeaway": "根号型的通式：$(\\sqrt u)'=\\frac{u'}{2\\sqrt u}$。它其实就是「外层 $\\frac{1}{2\\sqrt u}$ × 内层 $u'$」的结果，记住通式能省一次推导。"
+        },
+        {
+          "type": "note",
+          "md": "教材说「分解比较熟悉后可以不必引入中间变量」。省的是**书写**，不是思考——心里那三层不能省，否则就会漏乘。"
+        }
+      ],
+      "checkpoint": {
+        "q": "$\\sin^2 x$ 和 $\\sin(x^2)$ 的拆法有什么不同？",
+        "hints": [
+          "$\\sin^2x$ 是 $(\\sin x)^2$ 的简写，先把括号补上。",
+          "补上后能看出：最后一个动作是「平方」。",
+          "而 $\\sin(x^2)$ 最后一个动作是「取 sin」。"
+        ],
+        "reveal": "$\\sin^2x=(\\sin x)^2$：外层是平方，$y'=2\\sin x\\cdot\\cos x$，最后乘的内层导数是 $\\cos x$。$\\sin(x^2)$：外层是 $\\sin$，$y'=\\cos(x^2)\\cdot 2x$，内层导数是 $2x$。两个式子长得像，但乘上去的那个因子完全不同 —— 这就是拆错层的代价。"
+      }
+    },
+    {
+      "id": "s5",
+      "kp": [
+        "kp3"
+      ],
+      "title": "多层复合与几个典型题",
+      "blocks": [
+        {
+          "type": "example",
+          "label": "例 2.3.3",
+          "name": "一个必须记住的结论",
+          "stem": "设 $y=\\ln|x|$，求 $y'$。",
+          "solution": [
+            {
+              "op": "改写：$\\ln|x|=\\ln\\sqrt{x^2}$（$x\\neq 0$）。",
+              "why": "绝对值不能直接求导，必须化成能求导的形式。因为 $\\sqrt{x^2}=|x|$，所以这个改写没有改变函数本身，却把「绝对值」换成了「根号 + 平方」，而这两者都是可导的初等结构。"
+            },
+            {
+              "op": "拆三层：$y=\\ln u$，$u=\\sqrt v$，$v=x^2$。",
+              "why": "改写后自然出现三层：对数 → 根号 → 平方。"
+            },
+            {
+              "op": "$\\frac{dy}{dx}=\\frac1u\\cdot\\frac{1}{2\\sqrt v}\\cdot 2x$。",
+              "why": "三层各求各的，然后连乘。$2x$ 是 $(x^2)'$。"
+            },
+            {
+              "op": "代入 $u=\\sqrt v=|x|$，得 $\\frac{2x}{2\\cdot|x|\\cdot|x|}=\\frac{x}{x^2}=\\frac1x$。",
+              "why": "$|x|\\cdot|x|=x^2$；分子分母各约掉一个 $x$。注意结果里 $x$ 的正负已经自动处理掉了 —— 负半轴也成立。"
+            }
+          ],
+          "takeaway": "**$(\\ln|x|)'=\\frac1x$（$x\\neq0$）**。教材特意写了「这个结果需要读者记忆」。更快的记法：$\\ln|x|=\\frac12\\ln(x^2)$，直接一层链式得 $\\frac12\\cdot\\frac{2x}{x^2}=\\frac1x$。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.4",
+          "name": "三层复合",
+          "stem": "设 $y=\\ln\\cos(2e^x)$，求 $\\frac{dy}{dx}$。",
+          "solution": [
+            {
+              "op": "拆：$y=\\ln u$，$u=\\cos v$，$v=2e^x$。",
+              "why": "看图 4 的剥法：最外层是 ln，因为整个式子最后才取对数。"
+            },
+            {
+              "op": "$\\frac{dy}{dx}=\\frac1u\\cdot(-\\sin v)\\cdot 2e^x$。",
+              "why": "三层连乘。$\\cos$ 的导数是 $-\\sin$，这个负号来自「余弦递减」—— 角度增大时余弦值在减小。"
+            },
+            {
+              "op": "$=-\\frac{2e^x\\sin(2e^x)}{\\cos(2e^x)}=-2e^x\\tan(2e^x)$。",
+              "why": "把 $\\frac{\\sin}{\\cos}$ 收成 $\\tan$。不收也不算错，但收完更短，更容易和答案对照。"
+            }
+          ],
+          "takeaway": "三层复合的动作分解：写出三层 → 三个导数连乘 → 收成最简。省略中间变量可以，但要能口头报出这三层分别是什么。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.6",
+          "name": "指数上还有乘积",
+          "stem": "设 $y=2^{x^2\\sin\\frac1x}$，求 $y'$。",
+          "solution": [
+            {
+              "op": "拆：$y=2^u$，$u=x^2\\sin\\frac1x$。",
+              "why": "外层是指数 $2^u$；内层虽然复杂，但在这一层看来它就是一个整体 $u$。"
+            },
+            {
+              "op": "$y'=2^u\\ln 2\\cdot u'$。",
+              "why": "$(a^u)'=a^u\\ln a$。$\\ln2$ 是最常被漏掉的因子 —— 它来自「把底数 2 换成以 $e$ 为底的指数」这一步。"
+            },
+            {
+              "op": "$u'=2x\\sin\\frac1x+x^2\\cos\\frac1x\\cdot\\left(-\\frac{1}{x^2}\\right)$。",
+              "why": "内层是**乘积**，所以这里要切换到乘积法则：$(x^2)'\\sin\\frac1x+x^2\\left(\\sin\\frac1x\\right)'$。最后一项里的 $\\left(\\sin\\frac1x\\right)'$ 又要再套一次链式，得到 $\\cos\\frac1x\\cdot(-\\frac1{x^2})$。"
+            },
+            {
+              "op": "$u'=2x\\sin\\frac1x-\\cos\\frac1x$。",
+              "why": "$x^2\\cdot\\left(-\\frac1{x^2}\\right)=-1$，正好约掉，所以最后一项化简成了干净的 $-\\cos\\frac1x$。"
+            },
+            {
+              "op": "$y'=2^{x^2\\sin\\frac1x}\\ln 2\\left(2x\\sin\\frac1x-\\cos\\frac1x\\right)$。",
+              "why": "把 $u$ 换回原式。指数里那坨不能展开，原样保留。"
+            }
+          ],
+          "takeaway": "这题的价值：链式法则和乘积法则会**嵌套**。内层求导时该用乘积法则就照常用，不要因为「正在用链式」就忘了内层还是乘积。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.7",
+          "name": "一个必然约分的结构",
+          "stem": "设 $y=\\ln\\left(x+\\sqrt{x^2+a^2}\\right)$（$a>0$），求 $y'$。",
+          "solution": [
+            {
+              "op": "外层：$y'=\\frac{1}{x+\\sqrt{x^2+a^2}}\\cdot\\left(x+\\sqrt{x^2+a^2}\\right)'$。",
+              "why": "先按 $\\ln u$ 处理，把整坨当成 $u$。"
+            },
+            {
+              "op": "内层：$\\left(x+\\sqrt{x^2+a^2}\\right)'=1+\\frac{x}{\\sqrt{x^2+a^2}}$。",
+              "why": "$x$ 的导数是 1；根号那项用例 2.3.2 的通式，得 $\\frac{2x}{2\\sqrt{x^2+a^2}}=\\frac{x}{\\sqrt{x^2+a^2}}$。"
+            },
+            {
+              "op": "通分：$1+\\frac{x}{\\sqrt{x^2+a^2}}=\\frac{\\sqrt{x^2+a^2}+x}{\\sqrt{x^2+a^2}}$。",
+              "why": "把 1 写成 $\\frac{\\sqrt{x^2+a^2}}{\\sqrt{x^2+a^2}}$，两项才合得起来。"
+            },
+            {
+              "op": "与前面的分母约掉：$y'=\\frac{1}{\\sqrt{x^2+a^2}}$。",
+              "why": "约掉后分子分母里的 $x+\\sqrt{x^2+a^2}$ 完全消失，只剩下内层分母。这不是巧合 —— 见下面的要点。"
+            }
+          ],
+          "takeaway": "这类题的信号：式子里出现 $x+\\sqrt{x^2+a^2}$ 这种「自己配自己」的结构，八成一求导就会整体约掉。这不是运气，是设计出来的：$\\left(x+\\sqrt{x^2+a^2}\\right)'=\\frac{x+\\sqrt{x^2+a^2}}{\\sqrt{x^2+a^2}}$，分子恰好等于原式本身。"
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.5",
+          "name": "幂套三角，三层",
+          "stem": "设 $y=\\tan^3(2x+1)$，求 $y'$。",
+          "solution": [
+            {
+              "op": "$y'=[\\tan^3(2x+1)]'=3\\tan^2(2x+1)\\cdot[\\tan(2x+1)]'$。",
+              "why": "$\\tan^3$ 是 $(\\tan\\,\\cdot)^3$ 的简写，所以最外层是「三次方」，求导降一次幂。**注意不是** $(\\tan^3)'=3\\tan^2\\cdot\\tan'$ 就完事 —— 括号里还有东西没求。"
+            },
+            {
+              "op": "$=3\\tan^2(2x+1)\\cdot\\sec^2(2x+1)\\cdot(2x+1)'$。",
+              "why": "第二层是 $\\tan$，导数是 $\\sec^2$。到这一步已经乘了两层，但括号里的 $(2x+1)$ 还没对 $x$ 求导 —— 这就是教材说的「一求到底」。"
+            },
+            {
+              "op": "$=3\\tan^2(2x+1)\\sec^2(2x+1)\\cdot 2=6\\tan^2(2x+1)\\sec^2(2x+1)$。",
+              "why": "最内层 $(2x+1)'=2$。三层乘完，系数 3×2 = 6。"
+            }
+          ],
+          "takeaway": "这题的陷阱是**层数数错**：$\\tan^3(2x+1)$ 看起来像两层，实际是三层（三次方 → tan → 2x+1）。判断层数的方法：从最外层的运算开始数，数到自变量为止。"
+        },
+        {
+          "type": "note",
+          "md": "教材的两条操作纪律：① **由外向内逐层求导，中间不能有遗漏**；② **逐层求导时要一求到底，直到对自变量求导**。"
+        }
+      ],
+      "checkpoint": {
+        "q": "三层复合时漏掉中间层会怎样？拿 $\\ln\\cos(2e^x)$ 算一下。",
+        "hints": [
+          "正确地是三层连乘：$\\frac1u\\cdot(-\\sin v)\\cdot 2e^x$。",
+          "漏掉 $2e^x$ 就是只乘了前两层。",
+          "比较一下漏与不漏的结果差多少。"
+        ],
+        "reveal": "漏掉会得到 $-\\tan(2e^x)$，正确答案是 $-2e^x\\tan(2e^x)$，整整少了一个因子 $2e^x$。这不是「差一点」，是数量级不对 —— 所以老师一眼就能看出你漏了层。"
+      }
+    },
+    {
+      "id": "s6",
+      "kp": [
+        "kp7"
+      ],
+      "title": "应用：气球膨胀有多快",
+      "blocks": [
+        {
+          "type": "example",
+          "label": "例 2.3.9",
+          "name": "相关变化率",
+          "stem": "气球充气时半径以 $1\\ \\text{cm/s}$ 增大，始终保持球形。求半径 $10\\ \\text{cm}$ 时体积增加的速度。",
+          "solution": [
+            {
+              "op": "设时刻 $t$ 的体积 $V$、半径 $r$，则 $V=\\frac43\\pi r^3$，且 $r=r(t)$。",
+              "why": "最关键的是最后那半句：把 $r$ 显式写成 $t$ 的函数。不写这一步，就会下意识把 $r$ 当常数处理。"
+            },
+            {
+              "op": "$\\frac{dV}{dt}=\\frac43\\pi\\cdot 3[r(t)]^2\\cdot\\frac{dr}{dt}$。",
+              "why": "链式法则：外层是 $r^3$，关于 $r$ 求导得 $3r^2$；再乘内层 $r$ 关于 $t$ 的导数。$\\frac43\\pi$ 是常数，原样保留。"
+            },
+            {
+              "op": "$=4\\pi r^2\\frac{dr}{dt}$。",
+              "why": "约掉 3，得到体积变化率和半径变化率的关系式。"
+            },
+            {
+              "op": "代入 $r=10$、$\\frac{dr}{dt}=1$，得 $\\frac{dV}{dt}=400\\pi\\ \\text{cm}^3/\\text{s}$。",
+              "why": "$4\\pi\\cdot100\\cdot1=400\\pi$。数值一定最后代，因为导数的值会随 $r$ 变化。"
+            }
+          ],
+          "takeaway": "相关变化率四步：写关系式 → 全部看成 $t$ 的函数 → 两边对 $t$ 求导 → 最后代数值。顺序错了必错。"
+        }
+      ],
+      "checkpoint": {
+        "q": "如果先把 $r=10$ 代进 $V=\\frac43\\pi r^3$ 再对 $t$ 求导，会得到什么？",
+        "hints": [
+          "代入后 $V$ 变成了什么？",
+          "$V=\\frac{4000\\pi}{3}$，一个常数。",
+          "常数对 $t$ 的导数是？"
+        ],
+        "reveal": "会得到 0。因为代入后 $V$ 成了固定数值，而常数的变化率就是 0 —— 明明体积在涨，你却算出「不涨」。这就是「必须先保留函数关系、最后才代值」的原因。"
+      }
+    },
+    {
+      "id": "s7",
+      "kp": [
+        "kp4"
+      ],
+      "title": "反函数的求导法则",
+      "blocks": [
+        {
+          "type": "theorem",
+          "label": "定理 2",
+          "name": "反函数的求导法则",
+          "statement": "若单调连续函数 $x=\\varphi(y)$ 在点 $y$ 处可导，且 $\\varphi'(y)\\neq 0$，则它的反函数 $y=f(x)$ 在对应点 $x$ 处可导，且 $$f'(x)=\\frac{1}{\\varphi'(y)}\\quad\\text{或}\\quad\\frac{dy}{dx}=\\frac{1}{\\frac{dx}{dy}}.$$",
+          "terms": [
+            {
+              "sym": "$\\frac{dx}{dy}$",
+              "name": "直接函数的导数",
+              "role": "：$x$ 关于 $y$ 的变化率，即「$y$ 走 1 格，$x$ 走多远」。"
+            },
+            {
+              "sym": "$\\frac{dy}{dx}$",
+              "name": "反函数的导数",
+              "role": "：把上一条的「谁跟谁」反过来问 ——「$x$ 走 1 格，$y$ 走多远」。答案就是它自己，只不过倒数。"
+            },
+            {
+              "sym": "$\\varphi'(y)\\neq0$",
+              "name": "分母不能为零",
+              "role": "：取倒数的前提。几何上对应「原函数切线不水平」。"
+            }
+          ],
+          "decode": [
+            {
+              "k": "为什么是倒数",
+              "v": "把变化率想成「每前进 1 个单位，另一个量变多少」。反函数就是把输入输出对调，所以「每 1 个 $y$ 对应多少 $x$」和「每 1 个 $x$ 对应多少 $y$」互为倒数。图上就是斜率 $k$ 与 $\\frac1k$。"
+            },
+            {
+              "k": "推导只用了什么",
+              "v": "只用了链式法则和反函数的定义 $y=f[\\varphi(y)]$。所以教材把它放在「复合函数求导法则的应用」里 —— 它不是新工具，是旧工具的一次使用。"
+            }
+          ]
+        },
+        {
+          "type": "proof",
+          "label": "推导",
+          "steps": [
+            {
+              "op": "设 $y=f(x)$ 与 $x=\\varphi(y)$ 互为反函数，把 $x=\\varphi(y)$ 代回 $f$ 得 $y=f[\\varphi(y)]$，这是恒等式。",
+              "why": "反函数的定义就是「代回去能还原」。写成恒等式，后面才能对两边同时求导。"
+            },
+            {
+              "op": "两边同时对 $y$ 求导。左边 $(y)'_y=1$。",
+              "why": "$y$ 对 $y$ 求导恒为 1 —— 自己变 1 个单位，自己就变 1 个单位。"
+            },
+            {
+              "op": "右边用链式法则：$f[\\varphi(y)]$ 的外层是 $f$、内层是 $\\varphi$，得 $f'(x)\\cdot\\varphi'(y)$。",
+              "why": "外层 $f$ 关于它的输入 $x$ 求导，内层 $x=\\varphi(y)$ 关于 $y$ 求导。注意这里的「外层变量」是 $x$，所以写成 $f'(x)$ 而不是 $f'(y)$。"
+            },
+            {
+              "op": "于是 $1=f'(x)\\varphi'(y)$，两边同除 $\\varphi'(y)$ 得 $f'(x)=\\frac{1}{\\varphi'(y)}$。",
+              "why": "这一步就是全部。除法要求 $\\varphi'(y)\\neq0$，定理里的条件正是从这里来的，不是额外加的。"
+            }
+          ],
+          "takeaway": "记住这个推导比背公式更有用：它告诉你反函数求导 = 链式法则 + 恒等式 $y=f[\\varphi(y)]$。后面 $\\arcsin$、$\\arctan$ 的公式都是照这个模板现推的。"
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么反函数求导公式里必须写 $\\varphi'(y)\\neq 0$？",
+        "hints": [
+          "看推导的最后一步：做了什么运算？",
+          "两边同除 $\\varphi'(y)$。",
+          "分母为零时这个运算无意义。"
+        ],
+        "reveal": "因为最后一步要除以 $\\varphi'(y)$。分母为零时公式失效；几何上此时原函数的切线水平，反函数的切线竖直，斜率不存在 —— 反函数在那一点确实不可导。"
+      }
+    },
+    {
+      "id": "s8",
+      "kp": [
+        "kp5"
+      ],
+      "title": "反三角函数：从 arcsin 开始",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "反三角函数的导数不需要另背，用定理 2 一条条推就行。以 $\\arcsin$ 为例：$y=\\arcsin x$ 与 $x=\\sin y$ 互为反函数，由定理 2 得 $(\\arcsin x)'=\\frac{1}{(\\sin y)'}=\\frac{1}{\\cos y}$。"
+        },
+        {
+          "type": "formula",
+          "label": "推导",
+          "name": "把 $\\cos y$ 换成 $x$ 的表达式",
+          "tex": "\\frac{1}{\\cos y}=\\frac{1}{\\sqrt{1-\\sin^2 y}}=\\frac{1}{\\sqrt{1-x^2}}",
+          "terms": [
+            {
+              "sym": "$\\cos y$",
+              "name": "来自直接函数的导数",
+              "role": "：$x=\\sin y$ 的导数是 $\\cos y$，取倒数后跑到分母上。"
+            },
+            {
+              "sym": "$\\sin^2y$",
+              "name": "替换回 $x$",
+              "role": "：因为 $x=\\sin y$，所以 $\\sin^2y=x^2$。最后答案里不能留 $y$。"
+            },
+            {
+              "sym": "取正号的 $\\sqrt{}$",
+              "name": "值域决定的",
+              "role": "：$y\\in(-\\frac\\pi2,\\frac\\pi2)$ 时 $\\cos y>0$，所以开方只可能是正的。这一段区间内余弦全程为正，没有任何一段为负。"
+            }
+          ],
+          "decode": [
+            {
+              "k": "为什么根号一定取正",
+              "v": "$\\arcsin$ 的值域被限定在 $(-\\frac{\\pi}{2},\\frac{\\pi}{2})$，在这个区间上 $\\cos y$ 从 0 升到 1 再降回 0，全程非负。所以 $\\sqrt{1-x^2}$ 前面不需要加 $\\pm$。如果值域换一个区间，符号就要跟着变 —— 这也是为什么反三角函数必须先规定值域。"
+            }
+          ]
+        },
+        {
+          "type": "formula",
+          "label": "公式",
+          "name": "四个反三角函数导数",
+          "tex": "(\\arcsin x)'=\\frac{1}{\\sqrt{1-x^2}},\\quad (\\arccos x)'=-\\frac{1}{\\sqrt{1-x^2}},\\quad (\\arctan x)'=\\frac{1}{1+x^2},\\quad (\\arccot x)'=-\\frac{1}{1+x^2}",
+          "terms": [
+            {
+              "sym": "$\\arcsin$ / $\\arccos$",
+              "name": "带根号的一组",
+              "role": "：来自 $x=\\sin y$ 或 $x=\\cos y$，分母是 $\\cos y$ 或 $\\sin y$，用 $\\sin^2+\\cos^2=1$ 换元后必然出现根号。"
+            },
+            {
+              "sym": "$\\arctan$ / $\\arccot$",
+              "name": "不带根号的一组",
+              "role": "：来自 $x=\\tan y$，而 $(\\tan y)'=\\sec^2y=1+\\tan^2y=1+x^2$，全是平方项，没有根号。"
+            },
+            {
+              "sym": "负号",
+              "name": "只属于 arccos 和 arccot",
+              "role": "：因为 $(\\cos y)'=-\\sin y$、$(\\cot y)'=-\\csc^2y$ 自带负号，取倒数后保留。"
+            }
+          ],
+          "decode": [
+            {
+              "k": "一句话记法",
+              "v": "**sin/cos 带根号，tan/cot 不带；带 c 的多负号**。（arccos、arccot 的 c 提醒你加负号。）"
+            }
+          ]
+        },
+        {
+          "type": "example",
+          "label": "例 2.3.10",
+          "name": "反三角里再套分式",
+          "stem": "求 $f(x)=\\arctan\\frac{1-x^2}{1+x^2}$ 的导数。",
+          "solution": [
+            {
+              "op": "$f'(x)=\\frac{1}{1+\\left(\\frac{1-x^2}{1+x^2}\\right)^2}\\cdot\\left(\\frac{1-x^2}{1+x^2}\\right)'$。",
+              "why": "外层 $\\arctan u$ 用通式 $\\frac{1}{1+u^2}$；内层是分式，留给下一步。"
+            },
+            {
+              "op": "$1+\\left(\\frac{1-x^2}{1+x^2}\\right)^2=\\frac{(1+x^2)^2+(1-x^2)^2}{(1+x^2)^2}=\\frac{2(1+x^4)}{(1+x^2)^2}$。",
+              "why": "通分后展开：$(1+x^2)^2=1+2x^2+x^4$，$(1-x^2)^2=1-2x^2+x^4$，交叉项一正一负抵消，只剩 $2+2x^4$。"
+            },
+            {
+              "op": "$\\left(\\frac{1-x^2}{1+x^2}\\right)'=\\frac{-2x(1+x^2)-(1-x^2)\\cdot2x}{(1+x^2)^2}=\\frac{-4x}{(1+x^2)^2}$。",
+              "why": "商法则 $\\frac{u'v-uv'}{v^2}$。分子展开：$-2x-2x^3-2x+2x^3=-4x$，三次项同样抵消。"
+            },
+            {
+              "op": "$f'(x)=\\frac{(1+x^2)^2}{2(1+x^4)}\\cdot\\frac{-4x}{(1+x^2)^2}=-\\frac{2x}{1+x^4}$。",
+              "why": "$(1+x^2)^2$ 上下完全约掉，只剩 $-\\frac{4x}{2(1+x^4)}$。"
+            }
+          ],
+          "takeaway": "两次「交叉项抵消」不是巧合：$\\frac{1-x^2}{1+x^2}$ 这个形式在平方和求导时都会让奇数次项成对消掉。看到它就预期答案会很干净。"
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么 $(\\arccos x)'$ 比 $(\\arcsin x)'$ 多一个负号？",
+        "hints": [
+          "两者都靠定理 2 推。",
+          "$\\arccos$ 对应的是 $x=\\cos y$。",
+          "$(\\cos y)'=-\\sin y$，负号在这里就已经有了。"
+        ],
+        "reveal": "因为直接函数 $x=\\cos y$ 的导数 $(\\cos y)'=-\\sin y$ 自带负号，取倒数后 $-\\frac{1}{\\sin y}=-\\frac{1}{\\sqrt{1-x^2}}$。同理 $\\arccot$ 比 $\\arctan$ 多负号，因为 $(\\cot y)'=-\\csc^2y$。"
+      }
+    },
+    {
+      "id": "s9",
+      "kp": [
+        "kp6"
+      ],
+      "title": "公式总表",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "教材 P77 把常用公式汇总成一张表，并写了「建议熟记」。这张表是底座：链式法则拆得再对，表不熟也算不出结果。"
+        },
+        {
+          "type": "table",
+          "label": "表",
+          "name": "基本求导公式",
+          "head": [
+            "函数",
+            "导数",
+            "记忆点"
+          ],
+          "rows": [
+            [
+              "$C$",
+              "$0$",
+              "常数不变化"
+            ],
+            [
+              "$x^{\\mu}$",
+              "$\\mu x^{\\mu-1}$",
+              "降一次幂，原指数提到前面"
+            ],
+            [
+              "$a^x$",
+              "$a^x\\ln a$",
+              "漏 $\\ln a$ 是高频错"
+            ],
+            [
+              "$e^x$",
+              "$e^x$",
+              "唯一导数是自己的函数"
+            ],
+            [
+              "$\\log_a x$",
+              "$\\frac{1}{x\\ln a}$",
+              "底不是 $e$ 就要多除一个 $\\ln a$"
+            ],
+            [
+              "$\\ln x$",
+              "$\\frac1x$",
+              "定义域 $x>0$"
+            ],
+            [
+              "$\\ln|x|$",
+              "$\\frac1x$",
+              "$x\\neq0$ 全成立"
+            ],
+            [
+              "$\\sin x$",
+              "$\\cos x$",
+              ""
+            ],
+            [
+              "$\\cos x$",
+              "$-\\sin x$",
+              "负号"
+            ],
+            [
+              "$\\tan x$",
+              "$\\sec^2x$",
+              "$=\\frac{1}{\\cos^2x}$"
+            ],
+            [
+              "$\\cot x$",
+              "$-\\csc^2x$",
+              "负号"
+            ],
+            [
+              "$\\sec x$",
+              "$\\sec x\\tan x$",
+              ""
+            ],
+            [
+              "$\\csc x$",
+              "$-\\csc x\\cot x$",
+              "负号"
+            ],
+            [
+              "$\\arcsin x$",
+              "$\\frac{1}{\\sqrt{1-x^2}}$",
+              "带根号，正"
+            ],
+            [
+              "$\\arccos x$",
+              "$-\\frac{1}{\\sqrt{1-x^2}}$",
+              "带根号，负"
+            ],
+            [
+              "$\\arctan x$",
+              "$\\frac{1}{1+x^2}$",
+              "无根号，正"
+            ],
+            [
+              "$\\arccot x$",
+              "$-\\frac{1}{1+x^2}$",
+              "无根号，负"
+            ],
+            [
+              "$\\operatorname{sh}x$",
+              "$\\operatorname{ch}x$",
+              ""
+            ],
+            [
+              "$\\operatorname{ch}x$",
+              "$\\operatorname{sh}x$",
+              ""
+            ],
+            [
+              "$\\operatorname{th}x$",
+              "$\\frac{1}{\\operatorname{ch}^2x}$",
+              ""
+            ],
+            [
+              "$\\operatorname{arsh}x$",
+              "$\\frac{1}{\\sqrt{x^2+1}}$",
+              "与例 2.3.7 同源"
+            ],
+            [
+              "$\\operatorname{arch}x$",
+              "$\\frac{1}{\\sqrt{x^2-1}}$",
+              "定义域 $x>1$"
+            ],
+            [
+              "$\\operatorname{arth}x$",
+              "$\\frac{1}{1-x^2}$",
+              "$|x|<1$"
+            ]
+          ],
+          "decode": [
+            {
+              "k": "背的优先级",
+              "v": "$\\ln|x|$、$\\sqrt u$、$\\frac1u$、$\\arctan$、$\\arcsin$、$e^u$、$a^u$ 这七个用得最多。先把这七个练到条件反射，其余按六组规律推。"
+            }
+          ]
+        }
+      ],
+      "checkpoint": {
+        "q": "不看表，四个反三角函数的导数能一次写对几个？用一句话概括规律。",
+        "hints": [
+          "先分组：sin/cos 一组，tan/cot 一组。",
+          "sin/cos 带根号，tan/cot 不带。",
+          "带 c 的两个（arccos、arccot）加负号。"
+        ],
+        "reveal": "$(\\arcsin x)'=\\frac{1}{\\sqrt{1-x^2}}$、$(\\arccos x)'=-\\frac{1}{\\sqrt{1-x^2}}$、$(\\arctan x)'=\\frac{1}{1+x^2}$、$(\\arccot x)'=-\\frac{1}{1+x^2}$。规律：sin/cos 带根号、tan/cot 不带；带 c 的多负号。"
+      }
+    },
+    {
+      "id": "s10",
+      "kp": [
+        "kp2",
+        "kp3",
+        "kp5",
+        "kp7"
+      ],
+      "title": "教材习题精讲：只挑会踩坑的四道",
+      "blocks": [
+        {
+          "type": "text",
+          "md": "教材 P78 的习题 2-3 有 24 道求导题。它们大多只是把前面的招式换个函数再走一遍，全做一遍的收益很低。这里只挑四道**各自踩不同坑**的，再加一道切线应用题。其余同类题跳过。"
+        },
+        {
+          "type": "example",
+          "label": "习题 1(2)",
+          "name": "内层带负号",
+          "stem": "求 $y=\\sin(3-2x)$ 的导数。",
+          "solution": [
+            {
+              "op": "拆：$y=\\sin u$，$u=3-2x$。",
+              "why": "括号里整体是一次函数，所以只有两层。"
+            },
+            {
+              "op": "$y'=\\cos u\\cdot(-2)=-2\\cos(3-2x)$。",
+              "why": "内层 $(3-2x)'=-2$ —— 负号来自 $x$ 前面的系数 $-2$，不是来自别处。丢掉这个负号是这类题最常见的失分，因为 $\\cos$ 本身是正的，很容易顺手写成 $2\\cos(3-2x)$。"
+            }
+          ],
+          "takeaway": "看到 $a-bx$ 这种内层，先在心里默念一遍「导数是 $-b$」，再往下写。"
+        },
+        {
+          "type": "example",
+          "label": "习题 1(17)",
+          "name": "根号套分式",
+          "stem": "求 $y=\\sqrt{\\dfrac{1+x}{1-x}}$ 的导数。",
+          "solution": [
+            {
+              "op": "拆：$y=\\sqrt u$，$u=\\dfrac{1+x}{1-x}$。",
+              "why": "外层是根号。括号里是一个分式，对根号这一层来说它就是整体 $u$。"
+            },
+            {
+              "op": "$u'=\\dfrac{1\\cdot(1-x)-(1+x)\\cdot(-1)}{(1-x)^2}=\\dfrac{2}{(1-x)^2}$。",
+              "why": "商法则 $\\frac{u'v-uv'}{v^2}$。分母的导数 $(1-x)'=-1$，所以减号后面变成加，分子是 $(1-x)+(1+x)=2$ —— 中间那个 $x$ 恰好消掉了。"
+            },
+            {
+              "op": "$y'=\\dfrac{1}{2\\sqrt u}\\cdot\\dfrac{2}{(1-x)^2}=\\dfrac{1}{(1-x)^2\\sqrt{\\dfrac{1+x}{1-x}}}$。",
+              "why": "两个 2 约掉。这个形式已经对，但还能再化简 —— 把根号里的分式拆开，分母会出现 $(1-x)^{3/2}$。"
+            }
+          ],
+          "takeaway": "这题的坑在中间：商法则里分母的导数是 $-1$，减号变加号，很多人在这里少写一个负号。算完可以代 $x=0$ 验一下：$u'=2$，符合预期。"
+        },
+        {
+          "type": "example",
+          "label": "习题 1(20)",
+          "name": "看着复杂，约完极简",
+          "stem": "求 $y=\\ln(\\csc x-\\cot x)$ 的导数。",
+          "solution": [
+            {
+              "op": "拆：$y=\\ln u$，$u=\\csc x-\\cot x$。",
+              "why": "外层是对数。里面是两个三角函数相减，属于「基本初等函数经过四则运算构成」，所以 $u$ 到此为止，不用再拆。"
+            },
+            {
+              "op": "$u'=-\\csc x\\cot x-(-\\csc^2x)=\\csc x(\\csc x-\\cot x)$。",
+              "why": "$(\\csc x)'=-\\csc x\\cot x$，$(\\cot x)'=-\\csc^2x$，两个负号相减得正。再提出公因子 $\\csc x$ —— 这一步是专门为了下一步能约分。"
+            },
+            {
+              "op": "$y'=\\dfrac{1}{\\csc x-\\cot x}\\cdot\\csc x(\\csc x-\\cot x)=\\csc x$。",
+              "why": "括号里的整块和外面分母完全一样，整体约掉，只剩 $\\csc x$。"
+            }
+          ],
+          "takeaway": "这道题的设计意图就是「约分」。识别信号：被求导的表达式里出现了能提出来的因子，提出来之后正好等于外层分母 —— 那就一定会约掉。"
+        },
+        {
+          "type": "example",
+          "label": "习题 1(22)",
+          "name": "反三角套分式",
+          "stem": "求 $y=\\arcsin\\dfrac{1}{1+x^2}$ 的导数。",
+          "solution": [
+            {
+              "op": "$y'=\\dfrac{1}{\\sqrt{1-\\left(\\dfrac{1}{1+x^2}\\right)^2}}\\cdot\\left(\\dfrac{1}{1+x^2}\\right)'$。",
+              "why": "外层是 $\\arcsin u$，用 $\\frac{1}{\\sqrt{1-u^2}}$。内层是分式，下一步处理。"
+            },
+            {
+              "op": "$\\left(\\dfrac{1}{1+x^2}\\right)'=\\dfrac{-2x}{(1+x^2)^2}$。",
+              "why": "把 $\\frac{1}{1+x^2}$ 看成 $(1+x^2)^{-1}$，用链式：$-1\\cdot(1+x^2)^{-2}\\cdot 2x$。比商法则快。"
+            },
+            {
+              "op": "$1-\\dfrac{1}{(1+x^2)^2}=\\dfrac{(1+x^2)^2-1}{(1+x^2)^2}=\\dfrac{x^2(x^2+2)}{(1+x^2)^2}$，开方得 $\\dfrac{x\\sqrt{x^2+2}}{1+x^2}$。",
+              "why": "$(1+x^2)^2-1=x^4+2x^2=x^2(x^2+2)$，提出 $x^2$ 后开方才干净。"
+            },
+            {
+              "op": "$y'=\\dfrac{1+x^2}{x\\sqrt{x^2+2}}\\cdot\\dfrac{-2x}{(1+x^2)^2}=-\\dfrac{2}{(1+x^2)\\sqrt{x^2+2}}$。",
+              "why": "分子分母的 $x$ 约掉，$(1+x^2)$ 从二次降到一次。"
+            }
+          ],
+          "takeaway": "反三角套分式的固定流程：先套公式，再把 $1-u^2$ 通分化简，最后整体约分。这三步里最费时间的是通分，务必先把分子提出公因子再开方。"
+        },
+        {
+          "type": "example",
+          "label": "习题 5",
+          "name": "切线 / 法线（链式法则的直接应用）",
+          "stem": "求曲线 $y=e^{2x}+x^2$ 在点 $(0,1)$ 处的切线方程和法线方程。",
+          "solution": [
+            {
+              "op": "先验点：$x=0$ 时 $y=e^0+0=1$，所以 $(0,1)$ 确实在曲线上。",
+              "why": "题目给的「点」不一定在曲线上。先代进去验一次，避免后面白算。"
+            },
+            {
+              "op": "$y'=2e^{2x}+2x$。",
+              "why": "$(e^{2x})'=e^{2x}\\cdot 2$ —— 那个 2 是内层 $2x$ 的导数，漏了它整题就错。$(x^2)'=2x$。"
+            },
+            {
+              "op": "在 $x=0$ 处，斜率 $k=y'(0)=2\\cdot 1+0=2$。",
+              "why": "导数的几何意义就是曲线在该点切线的斜率。所以先求出导函数，再把 x=0 代进去，得到的数就是斜率。"
+            },
+            {
+              "op": "切线：$y-1=2x$，即 $y=2x+1$。法线：斜率 $-\\frac12$，$y-1=-\\frac{x}{2}$，即 $y=1-\\frac{x}{2}$。",
+              "why": "法线与切线垂直，斜率互为负倒数：$-\\frac{1}{2}$。两个方程都过同一个点 $(0,1)$。"
+            }
+          ],
+          "takeaway": "导数最直接的应用就是切线斜率。三步：验点 → 求导 → 代点。法线只是把斜率换成负倒数，别另起一套。"
+        }
+      ],
+      "checkpoint": {
+        "q": "为什么 $(\\ln(\\csc x-\\cot x))'$ 的结果会这么简单，只剩 $\\csc x$？",
+        "hints": [
+          "看内层导数 $u'$ 长什么样。",
+          "$u'$ 提出公因子 $\\csc x$ 之后，剩下的正好是 $u$ 本身。",
+          "外层是 $\\ln u$，导数里有 $\\frac{1}{u}$，与 $u$ 对上就约掉了。"
+        ],
+        "reveal": "因为内层导数 $u'=\\csc x\\cdot(\\csc x-\\cot x)=\\csc x\\cdot u$，而外层导数带着 $\\frac1u$，两者相乘时 $u$ 正好约掉。这类「分子等于分母」的结构在教材里被有意设计出来，识别它比硬算快得多。"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "q1",
+      "kp": [
+        "kp1"
+      ],
+      "kind": "single",
+      "stem": "链式法则 $\\frac{dy}{dx}=f'(u)\\varphi'(x)$ 成立，需要满足的条件是：",
+      "options": [
+        "只需外层 $f$ 可导",
+        "只需内层 $\\varphi$ 可导",
+        "外层在 $u$ 处可导，且内层在 $x$ 处可导",
+        "两层都连续即可"
+      ],
+      "answer": 2,
+      "hint": [
+        "公式里同时出现了 $f'(u)$ 和 $\\varphi'(x)$。",
+        "这两项都存在，才能相乘。",
+        "两个「可导」缺一不可。"
+      ],
+      "distractors": [
+        {
+          "opt": 0,
+          "mis": "concept"
+        },
+        {
+          "opt": 1,
+          "mis": "concept"
+        },
+        {
+          "opt": 3,
+          "mis": "concept"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "kp": [
+        "kp1",
+        "kp2"
+      ],
+      "kind": "judge",
+      "stem": "$(\\sin 5x)' = \\cos 5x$。",
+      "answer": false,
+      "hint": [
+        "$\\sin 5x$ 是复合函数。",
+        "外层 $\\sin u$，内层 $u=5x$，内层导数是 5。",
+        "链式法则要求两个导数相乘。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q3",
+      "kp": [
+        "kp2"
+      ],
+      "kind": "blank",
+      "stem": "$(\\sin 5x)' = $ ____（写出结果）",
+      "answer": [
+        "5cos5x",
+        "5cos(5x)",
+        "5·cos5x",
+        "5cos 5x"
+      ],
+      "hint": [
+        "外层导数 $\\cos 5x$。",
+        "再乘内层导数 5。",
+        "结果是 $5\\cos 5x$。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q4",
+      "kp": [
+        "kp2"
+      ],
+      "kind": "numeric",
+      "stem": "设 $y=(3x+2)^2$，求 $y'(0)$。",
+      "answer": 12,
+      "tolerance": 0.001,
+      "hint": [
+        "外层 $u^2$ 的导数是 $2u$。",
+        "内层 $u=3x+2$ 的导数是 3。",
+        "$y'=2(3x+2)\\cdot3$，代入 $x=0$ 得 12。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q5",
+      "kp": [
+        "kp3"
+      ],
+      "kind": "stepwise",
+      "stem": "求 $y=\\ln\\cos(2e^x)$ 的导数，正确的分解顺序（由外到内）是：",
+      "options": [
+        "$y=\\ln u,\\ u=\\cos v,\\ v=2e^x$",
+        "$y=\\ln u,\\ u=2e^x,\\ v=\\cos u$",
+        "$y=\\cos u,\\ u=\\ln v,\\ v=2e^x$",
+        "$y=2e^u,\\ u=\\ln\\cos x$"
+      ],
+      "answer": 0,
+      "hint": [
+        "最后执行的动作是最外层。",
+        "整个式子是先算 $2e^x$，再取余弦，最后取对数。",
+        "所以外层是 $\\ln$。"
+      ],
+      "distractors": [
+        {
+          "opt": 1,
+          "mis": "concept"
+        },
+        {
+          "opt": 2,
+          "mis": "concept"
+        },
+        {
+          "opt": 3,
+          "mis": "concept"
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "kp": [
+        "kp1",
+        "kp2"
+      ],
+      "kind": "findError",
+      "stem": "下面求导错在哪一步？\n① 设 $y=e^u$，$u=x^2$\n② $y'=e^u$\n③ 所以 $y'=e^{x^2}$",
+      "options": [
+        "第 ① 步分解错",
+        "第 ② 步漏乘 $u'$",
+        "第 ③ 步代换错",
+        "没有错误"
+      ],
+      "answer": 1,
+      "hint": [
+        "链式法则要求两个导数相乘。",
+        "$u=x^2$ 的导数是 $2x$。",
+        "第 ② 步只有外层导数。"
+      ],
+      "distractors": [
+        {
+          "opt": 0,
+          "mis": "concept"
+        },
+        {
+          "opt": 2,
+          "mis": "concept"
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "kp": [
+        "kp4"
+      ],
+      "kind": "single",
+      "stem": "关于反函数的求导法则，下列说法正确的是：",
+      "options": [
+        "反函数的导数等于直接函数导数的相反数",
+        "只需要直接函数可导即可",
+        "反函数的导数等于直接函数导数的倒数，且要求 $\\varphi'(y)\\neq 0$",
+        "反函数的导数一定存在"
+      ],
+      "answer": 2,
+      "hint": [
+        "几何上，两条曲线关于 $y=x$ 对称。",
+        "对称把斜率 $k$ 变成 $1/k$。",
+        "分母不能为零，这就是那个附加条件。"
+      ],
+      "distractors": [
+        {
+          "opt": 0,
+          "mis": "concept"
+        },
+        {
+          "opt": 1,
+          "mis": "concept"
+        },
+        {
+          "opt": 3,
+          "mis": "concept"
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "kp": [
+        "kp5"
+      ],
+      "kind": "blank",
+      "stem": "$(\\arctan x)' = $ ____",
+      "answer": [
+        "1/(1+x^2)",
+        "1/(1+x²)",
+        "1/(1+x*x)"
+      ],
+      "hint": [
+        "反三角导数表里查。",
+        "$\\tan$ 的导数是 $\\sec^2$，用 $\\sec^2=1+\\tan^2$ 换元。",
+        "结果不带根号。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q9",
+      "kp": [
+        "kp5"
+      ],
+      "kind": "judge",
+      "stem": "$(\\arccos x)' = \\frac{1}{\\sqrt{1-x^2}}$。",
+      "answer": false,
+      "hint": [
+        "$\\arccos$ 是递减函数。",
+        "递减意味着导数为负。",
+        "正号属于 $\\arcsin$。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q10",
+      "kp": [
+        "kp5"
+      ],
+      "kind": "short",
+      "stem": "为什么 $(\\arcsin x)'$ 取 $+\\frac{1}{\\sqrt{1-x^2}}$ 而不取负号？答出关键理由。",
+      "keywords": [
+        "cos y",
+        "大于零",
+        "正值",
+        "单调递增",
+        "值域",
+        "区间"
+      ],
+      "model": "因 $y=\\arcsin x\\in\\left(-\\frac{\\pi}{2},\\frac{\\pi}{2}\\right)$，在这个区间上 $\\cos y>0$，所以 $\\sqrt{1-x^2}=\\cos y$ 取正号。",
+      "hint": [
+        "$(\\arcsin x)'=\\frac{1}{\\cos y}$。",
+        "$y$ 的取值范围是 $\\left(-\\frac{\\pi}{2},\\frac{\\pi}{2}\\right)$。",
+        "这个区间内 $\\cos y$ 恒为正。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q11",
+      "kp": [
+        "kp7"
+      ],
+      "kind": "blank",
+      "stem": "气球半径以 $1\\ \\text{cm/s}$ 增大。半径 $10\\ \\text{cm}$ 时，体积增长率 $\\frac{dV}{dt}$ = ____ $\\text{cm}^3/\\text{s}$（含 $\\pi$，如 400π）",
+      "answer": [
+        "400π",
+        "400pi",
+        "400×π",
+        "400 π"
+      ],
+      "hint": [
+        "$V=\\frac43\\pi r^3$，$r$ 是 $t$ 的函数。",
+        "$\\frac{dV}{dt}=4\\pi r^2\\frac{dr}{dt}$。",
+        "代入 $r=10$、$\\frac{dr}{dt}=1$。"
+      ],
+      "distractors": []
+    },
+    {
+      "id": "q12",
+      "kp": [
+        "kp3",
+        "kp5"
+      ],
+      "kind": "short",
+      "stem": "求 $f(x)=\\ln\\left(x+\\sqrt{x^2+a^2}\\right)$ 的导数，写出最终表达式。",
+      "keywords": [
+        "1/√(x^2+a^2)",
+        "根号",
+        "x^2+a^2",
+        "约掉"
+      ],
+      "model": "$f'(x)=\\frac{1}{\\sqrt{x^2+a^2}}$。技巧在于外层分母 $x+\\sqrt{x^2+a^2}$ 与内层导数的分子恰好相同，可以整体约掉。",
+      "hint": [
+        "先按 $\\ln u$ 求导。",
+        "$u'=1+\\frac{x}{\\sqrt{x^2+a^2}}=\\frac{\\sqrt{x^2+a^2}+x}{\\sqrt{x^2+a^2}}$。",
+        "这个分子与外层分母完全一样。"
+      ],
+      "distractors": []
+    }
+  ]
+}

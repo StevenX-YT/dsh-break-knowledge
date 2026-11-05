@@ -1,0 +1,432 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #16181d;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #2563eb;
+  --accent-soft: #eff4ff;
+  --ok: #15803d;
+  --ok-soft: #ecfdf3;
+  --err: #b91c1c;
+  --err-soft: #fef2f2;
+  --warn: #b45309;
+  --warn-soft: #fffbeb;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 8px 24px -12px rgba(16, 24, 40, .18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a21;
+    --text: #e8eaee;
+    --muted: #9aa3b2;
+    --line: #262b35;
+    --accent: #6ea0ff;
+    --accent-soft: #17233d;
+    --ok: #4ade80;
+    --ok-soft: #12261a;
+    --err: #f87171;
+    --err-soft: #2a1414;
+    --warn: #fbbf24;
+    --warn-soft: #2a2010;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -12px rgba(0, 0, 0, .6);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 96px; }
+body { overflow-x: hidden; }
+.stem, .blk-text, .decode dd, .steps .op, .term-row .desc, .card p {
+  overflow-wrap: break-word; word-break: break-word;
+}
+
+/* ---------- header ---------- */
+.top { margin-bottom: 24px; }
+.top h1 { font-size: 26px; line-height: 1.35; margin: 0 0 6px; letter-spacing: -.01em; }
+.top .sub { color: var(--muted); font-size: 14px; display: flex; gap: 12px; flex-wrap: wrap; }
+.top .sub span { display: inline-flex; align-items: center; gap: 5px; }
+
+.tabs {
+  display: flex; gap: 4px; margin: 20px 0 26px;
+  border-bottom: 1px solid var(--line); padding-bottom: 0;
+}
+.tab {
+  appearance: none; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 15px; color: var(--muted);
+  padding: 10px 14px; border-radius: 10px 10px 0 0; position: relative; top: 1px;
+  border-bottom: 2px solid transparent; transition: color .15s;
+}
+.tab:hover { color: var(--text); }
+.tab[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.tab .badge {
+  display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 6px;
+  font-size: 12px; line-height: 18px; border-radius: 9px;
+  background: var(--accent-soft); color: var(--accent); text-align: center;
+}
+
+/* ---------- cards ---------- */
+.card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 22px 24px; margin-bottom: 18px;
+}
+.card h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: -.01em; }
+.card h3 .no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; margin-right: 8px; border-radius: 7px;
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 12px; font-weight: 700; vertical-align: 2px;
+}
+.card p { margin: 10px 0; }
+.card p:last-child { margin-bottom: 0; }
+.kp-tag {
+  display: inline-block; font-size: 12px; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 1px 9px; margin: 0 6px 8px 0;
+}
+
+/* ---------- 公式 ---------- */
+.imath { font-family: "Cambria Math", "Latin Modern Math", "Times New Roman", serif; }
+.tex { font-family: "Cambria Math", "Latin Modern Math", "Times New Roman", serif; }
+
+.frac {
+  display: inline-flex; flex-direction: column; vertical-align: middle;
+  text-align: center; margin: 0 .18em; line-height: 1.3;
+  position: relative; top: -.15em;
+}
+.frac .num { border-bottom: 1px solid currentColor; padding: 0 .28em .06em; }
+.frac .den { padding: .06em .28em 0; }
+
+.tex-block {
+  display: block; text-align: center; margin: 12px 0; padding: 8px 0;
+  font-size: 19px; line-height: 1.9;
+}
+
+.sqrt { border-top: 1px solid currentColor; padding: 0 .1em 0 .18em; margin-left: -.06em; }
+.sqrt::before {
+  content: "√"; display: inline-block; margin-right: -.12em;
+  transform: translateY(1px);
+}
+
+.tex sup, .imath sup, .tex sub, .imath sub { font-size: .72em; line-height: 0; }
+.fn { font-style: normal; padding-right: .08em; }
+.tsp { display: inline-block; width: 1em; }
+.tsp-sm { display: inline-block; width: .25em; }
+
+/* ---------- 章节导航 ---------- */
+.toc {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  padding: 10px 0 12px; margin-bottom: 8px;
+  background: linear-gradient(to bottom, var(--bg) 72%, transparent);
+}
+.toc::-webkit-scrollbar { display: none; }
+.toc a {
+  flex: 0 0 auto; font-size: 13px; color: var(--muted); text-decoration: none;
+  padding: 6px 11px; border-radius: 999px; white-space: nowrap; cursor: pointer;
+  border: 1px solid var(--line); background: var(--card); transition: .15s;
+}
+.toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- 内容块：定义 / 定理 / 公式 / 证明 / 例题 ---------- */
+.blk {
+  --blk-color: var(--accent);
+  margin: 16px 0; padding: 16px 18px; border-radius: 12px;
+  background: color-mix(in srgb, var(--blk-color) 4%, var(--card));
+  border: 1px solid var(--line); border-left: 3px solid var(--blk-color);
+}
+.blk.definition { --blk-color: #2563eb; }
+.blk.theorem  { --blk-color: #7c3aed; }
+.blk.formula  { --blk-color: #0d9488; }
+.blk.proof    { --blk-color: #64748b; }
+.blk.example  { --blk-color: #ea580c; }
+
+.blk-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 15px; }
+.blk-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: .03em;
+  padding: 2px 8px; border-radius: 6px; color: #fff;
+  background: color-mix(in srgb, var(--blk-color) 88%, #000);
+  white-space: nowrap;
+}
+.blk-head b { font-size: 15px; }
+
+.stmt { font-size: 15.5px; line-height: 1.8; }
+.tex {
+  font-family: "Cambria Math", "Latin Modern Math", "Times New Roman", serif;
+  font-size: 20px; line-height: 1.9; text-align: center; padding: 12px 0 4px;
+  letter-spacing: .02em;
+}
+
+.decode { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); }
+.decode dt {
+  font-size: 12px; font-weight: 700; letter-spacing: .02em;
+  color: var(--blk-color); margin-top: 11px;
+}
+.decode dt:first-child { margin-top: 0; }
+.decode dd { margin: 4px 0 0; font-size: 15px; line-height: 1.78; }
+
+.steps { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; padding: 10px 0 10px 34px; border-bottom: 1px dashed var(--line); }
+.steps li:last-child { border-bottom: 0; }
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 11px; width: 22px; height: 22px; border-radius: 50%;
+  background: color-mix(in srgb, var(--blk-color) 15%, transparent);
+  color: var(--blk-color); font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.steps .op { font-size: 15px; line-height: 1.72; }
+.steps .why {
+  margin-top: 5px; padding-left: 10px; font-size: 13.5px; line-height: 1.68;
+  color: var(--muted);
+  border-left: 2px solid color-mix(in srgb, var(--blk-color) 28%, transparent);
+}
+
+.takeaway {
+  margin-top: 14px; padding: 10px 13px; border-radius: 9px;
+  background: color-mix(in srgb, var(--blk-color) 9%, transparent);
+  font-size: 14px; line-height: 1.72;
+}
+.takeaway b { font-weight: 700; }
+.takeaway > b:first-child {
+  display: block; font-size: 12px; color: var(--blk-color); margin-bottom: 3px;
+}
+
+.blk-note {
+  margin: 12px 0; padding: 12px 15px; border-radius: 10px;
+  background: var(--warn-soft); border-left: 3px solid var(--warn);
+  font-size: 14.5px; line-height: 1.78;
+}
+.blk-text { font-size: 15.5px; line-height: 1.88; margin: 12px 0; }
+
+.blk.table { --blk-color: #0f766e; }
+.blk.figure { --blk-color: #4f46e5; }
+.blk.terms { --blk-color: #b45309; }
+
+/* ---------- 图解 ---------- */
+.fig { margin: 12px 0 4px; text-align: center; }
+.fig svg { max-width: 100%; height: auto; }
+.fig text { font-family: inherit; }
+figure.blk figcaption {
+  margin-top: 8px; font-size: 13px; line-height: 1.7; color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- 公式逐项拆解 ---------- */
+.term-list { margin: 12px 0 0; border-top: 1px dashed var(--line); padding-top: 4px; }
+.term-row {
+  display: grid; grid-template-columns: minmax(90px, auto) 1fr;
+  gap: 14px; align-items: baseline;
+  padding: 9px 0; border-bottom: 1px dashed var(--line);
+}
+.term-row:last-child { border-bottom: 0; }
+.term-row .sym {
+  font-family: "Cambria Math", "Latin Modern Math", "Times New Roman", serif;
+  font-size: 16px; color: var(--blk-color); white-space: nowrap;
+}
+.term-row .desc { font-size: 14.5px; line-height: 1.7; }
+.term-row .desc b { color: var(--text); margin-right: 6px; }
+.formula-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14.5px; }
+.formula-table th {
+  text-align: left; font-size: 12px; font-weight: 700; color: var(--muted);
+  padding: 6px 10px; border-bottom: 1px solid var(--line); letter-spacing: .03em;
+}
+.formula-table td { padding: 8px 10px; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+.formula-table tr:last-child td { border-bottom: 0; }
+.formula-table td:first-child { white-space: nowrap; }
+
+/* ---------- checkpoint ---------- */
+.check {
+  margin-top: 16px; padding: 16px 18px;
+  background: var(--accent-soft); border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.check .q { font-weight: 600; margin-bottom: 10px; }
+.check .q::before {
+  content: "想一想"; display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: .04em; color: var(--accent); margin-right: 8px;
+  padding: 1px 7px; border-radius: 6px; background: var(--card); vertical-align: 3px;
+}
+.hint-list { margin: 0; padding: 0; list-style: none; }
+.hint-list li {
+  margin: 8px 0; padding-left: 26px; position: relative; font-size: 15px;
+  color: var(--text); animation: fade .25s ease both;
+}
+.hint-list li::before {
+  content: "提示 " counter(hint); counter-increment: hint;
+  position: absolute; left: 0; top: 3px;
+  font-size: 11px; color: var(--warn); background: var(--warn-soft);
+  padding: 1px 5px; border-radius: 5px;
+}
+.hint-list { counter-reset: hint; }
+@keyframes fade { from { opacity: 0; transform: translateY(-3px); } }
+
+.btn {
+  appearance: none; border: 1px solid var(--line); background: var(--card);
+  color: var(--text); font: inherit; font-size: 14px; cursor: pointer;
+  padding: 7px 14px; border-radius: 9px; transition: .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(1.06); color: #fff; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+
+.reveal {
+  margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+  background: var(--card); border-left: 3px solid var(--ok);
+  font-size: 15px; animation: fade .25s ease both;
+}
+.reveal::before {
+  content: "答案"; display: block; font-size: 11px; font-weight: 700;
+  color: var(--ok); letter-spacing: .04em; margin-bottom: 4px;
+}
+
+/* ---------- quiz ---------- */
+.qmeta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.pill {
+  font-size: 12px; padding: 1px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.pill.kind { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+
+.stem { font-size: 16px; line-height: 1.8; margin-bottom: 14px; white-space: pre-wrap; }
+
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 14px; border: 1px solid var(--line); border-radius: 11px;
+  cursor: pointer; transition: .12s; background: var(--card);
+}
+.opt:hover { border-color: var(--accent); }
+.opt .k {
+  flex: 0 0 22px; height: 22px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; background: var(--bg); color: var(--muted);
+}
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.opt.sel .k { background: var(--accent); color: #fff; }
+.opt.ok { border-color: var(--ok); background: var(--ok-soft); }
+.opt.ok .k { background: var(--ok); color: #fff; }
+.opt.bad { border-color: var(--err); background: var(--err-soft); }
+.opt.bad .k { background: var(--err); color: #fff; }
+.opt.locked { cursor: default; }
+
+input[type="text"], input[type="number"] {
+  width: 100%; padding: 11px 13px; font: inherit; color: var(--text);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+  outline: none; transition: .15s;
+}
+input[type="text"]:focus, input[type="number"]:focus {
+  border-color: var(--accent); background: var(--card);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+textarea.short {
+  width: 100%; padding: 12px 13px; font: inherit; line-height: 1.7;
+  color: var(--text); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 10px; outline: none; resize: vertical; transition: .15s;
+}
+textarea.short:focus {
+  border-color: var(--accent); background: var(--card);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+input.ok, textarea.ok { border-color: var(--ok) !important; background: var(--ok-soft) !important; }
+input.bad, textarea.bad { border-color: var(--err) !important; background: var(--err-soft) !important; }
+
+.feedback {
+  margin-top: 14px; padding: 14px 16px; border-radius: 11px;
+  animation: fade .25s ease both; font-size: 15px; line-height: 1.7;
+}
+.feedback.ok { background: var(--ok-soft); border: 1px solid color-mix(in srgb, var(--ok) 25%, transparent); }
+.feedback.err { background: var(--err-soft); border: 1px solid color-mix(in srgb, var(--err) 25%, transparent); }
+.feedback .head { font-weight: 700; margin-bottom: 6px; }
+.feedback .why { color: var(--muted); font-size: 14px; margin-top: 6px; }
+.feedback .why b { color: var(--text); font-weight: 600; }
+
+/* ---------- report ---------- */
+.kp-row { display: grid; grid-template-columns: minmax(140px, 1fr) 180px 44px; gap: 12px; align-items: center; margin: 12px 0; }
+.kp-row .nm { font-size: 14px; }
+.bar { height: 8px; border-radius: 5px; background: var(--line); overflow: hidden; }
+.bar span { display: block; height: 100%; border-radius: 5px; background: var(--accent); transition: width .4s ease; }
+.bar span.low { background: var(--err); }
+.bar span.mid { background: var(--warn); }
+.bar span.high { background: var(--ok); }
+.kp-row .v { font-size: 13px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+
+.empty { color: var(--muted); font-size: 15px; padding: 28px 0; text-align: center; }
+.stat-sub { color: var(--muted); font-size: 14px; }
+
+.foot { margin-top: 40px; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.link { color: var(--accent); cursor: pointer; text-decoration: none; border-bottom: 1px dashed currentColor; }
+
+/* ---------- 手机 ---------- */
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .wrap { padding: 20px 14px 88px; }
+  .top { margin-bottom: 16px; }
+  .top h1 { font-size: 21px; }
+  .top .sub { font-size: 13px; gap: 8px; }
+  .tabs { margin: 14px 0 18px; }
+  .tab { font-size: 14px; padding: 9px 11px; }
+  .card { padding: 16px 14px; border-radius: 12px; margin-bottom: 14px; }
+  .card h3 { font-size: 16px; }
+  .blk { padding: 13px 12px; margin: 12px 0; }
+  .blk-head { flex-wrap: wrap; gap: 6px; }
+  .stmt, .blk-text { font-size: 15px; }
+  .decode dd, .steps .op { font-size: 14.5px; }
+  .steps li { padding-left: 28px; }
+  .steps li::before { width: 20px; height: 20px; font-size: 11px; }
+  .term-row { grid-template-columns: 1fr; gap: 2px; }
+  .term-row .sym { font-size: 15px; }
+  .btn { min-height: 40px; padding: 9px 14px; }
+  .opt { padding: 13px 12px; }
+  .tex { font-size: 17px; overflow-x: auto; overflow-y: hidden; padding: 10px 2px 4px; }
+  .tex-block { font-size: 17px; overflow-x: auto; }
+  .kp-row { grid-template-columns: 1fr 90px 38px; gap: 8px; }
+  .kp-row .nm { font-size: 13px; }
+  .formula-table { display: block; overflow-x: auto; white-space: nowrap; }
+  .fig { overflow-x: auto; }
+  .toc a { font-size: 12px; padding: 5px 9px; }
+  textarea.short { font-size: 15px; }
+}
+
+/* ---------- 章节切换 / 进度导入导出 ---------- */
+.chapters { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: none; }
+.chapters::-webkit-scrollbar { display: none; }
+.ch {
+  flex: 0 0 auto; font: inherit; font-size: 13px; padding: 7px 12px;
+  border-radius: 9px; border: 1px solid var(--line); background: var(--card);
+  color: var(--muted); cursor: pointer; white-space: nowrap; transition: .15s;
+}
+.ch:hover { border-color: var(--accent); color: var(--accent); }
+.ch.on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+.io { margin: 18px 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+.io[hidden] { display: none; }
+.io textarea {
+  width: 100%; font: 13px/1.55 ui-monospace, "SF Mono", Consolas, monospace;
+  padding: 10px; border-radius: 8px; resize: vertical;
+  border: 1px solid var(--line); background: var(--bg); color: var(--text);
+}
+
+/* ---------- print ---------- */
+@media print {
+  body { background: #fff; }
+  .tabs, .btn, .foot { display: none !important; }
+  .card { box-shadow: none; break-inside: avoid; }
+}
