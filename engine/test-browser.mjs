@@ -18,7 +18,9 @@ const EDGE_CANDIDATES = [
   '/usr/bin/chromium',
   '/usr/bin/chromium-browser'
 ];
-const EDGE = EDGE_CANDIDATES.find((p) => fs.existsSync(p));
+const EDGE = process.env.CHROME_PATH && fs.existsSync(process.env.CHROME_PATH)
+  ? process.env.CHROME_PATH
+  : EDGE_CANDIDATES.find((p) => fs.existsSync(p));
 if (!EDGE) { console.error('找不到 Edge/Chrome，跳过浏览器测试'); process.exit(2); }
 
 const target = 'file:///' + path.resolve(process.argv[2] || 'out/demo.html').replace(/\\/g, '/');
