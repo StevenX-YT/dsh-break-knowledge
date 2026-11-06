@@ -1,0 +1,50 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 判分内核单测
+        run: node engine/test-grade.mjs
+
+      - name: 渲染示例章节
+        run: node engine/render.mjs samples/gaoshu-p73-78.json /tmp/lesson.html
+
+      - name: 渲染两套骨架
+        run: |
+          node engine/render.mjs skeleton/theorem-track.json /tmp/sk-theorem.html
+          node engine/render.mjs skeleton/concept-track.json /tmp/sk-concept.html
+
+      - name: 渲染多章合并
+        run: node engine/render.mjs samples/book.example.json /tmp/book.html
+
+      - name: 产物检查
+        run: |
+          test -s /tmp/lesson.html     || { echo "lesson.html 为空"; exit 1; }
+          test -s /tmp/book.html       || { echo "book.html 为空"; exit 1; }
+          grep -q "study-data" /tmp/lesson.html || { echo "缺少内嵌数据"; exit 1; }
+          echo "OK"
+
+  # 端到端测试需要真实浏览器，单独跑，失败不阻塞合并
+  e2e:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node engine/render.mjs samples/gaoshu-p73-78.json /tmp/lesson.html
+      - name: 端到端（需要 Chrome/Edge）
+        run: node engine/test-browser.mjs /tmp/lesson.html
