@@ -8,18 +8,22 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 
 const EDGE_CANDIDATES = [
   'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
   'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser'
 ];
 const EDGE = EDGE_CANDIDATES.find((p) => fs.existsSync(p));
 if (!EDGE) { console.error('找不到 Edge/Chrome，跳过浏览器测试'); process.exit(2); }
 
 const target = 'file:///' + path.resolve(process.argv[2] || 'out/demo.html').replace(/\\/g, '/');
 const PORT = 9333 + Math.floor(Math.random() * 200);
-const profile = 'D:\\dsh-data\\cache\\edge-study-' + Date.now();
+const profile = path.join(os.tmpdir(), 'edge-study-' + Date.now());
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const child = spawn(EDGE, [
