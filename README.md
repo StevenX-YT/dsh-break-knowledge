@@ -1,5 +1,7 @@
 # 知识破壁机 · dsh-break-knowledge
 
+[![test](https://github.com/StevenX-YT/dsh-break-knowledge/actions/workflows/test.yml/badge.svg)](https://github.com/StevenX-YT/dsh-break-knowledge/actions/workflows/test.yml)
+
 把课本拍成照片，变成一份**能讲解、能出题、能判分、能查缺补漏**的单文件学习页。
 
 输出是一个 HTML 文件：双击就开，可以发微信、塞进手机、离线用。没有任何后端、没有任何外部依赖。
