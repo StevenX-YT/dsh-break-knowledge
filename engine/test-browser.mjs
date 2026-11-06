@@ -28,6 +28,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const child = spawn(EDGE, [
   '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
+  '--no-sandbox', '--disable-dev-shm-usage',
   '--disable-extensions', '--disable-background-networking',
   `--user-data-dir=${profile}`, `--remote-debugging-port=${PORT}`, 'about:blank'
 ], { stdio: 'ignore' });
