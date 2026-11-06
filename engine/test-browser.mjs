@@ -264,9 +264,14 @@ try {
   results.push({ name: '执行异常', ok: false, detail: e.message });
 } finally {
   try { ws && ws.close(); } catch {}
-  try { child.kill(); } catch {}
+  try { child.kill('SIGKILL'); } catch {}
   await sleep(400);
-  try { spawn('taskkill', ['/F', '/T', '/PID', String(child.pid)], { stdio: 'ignore' }); } catch {}
+  if (process.platform === 'win32') {
+    try {
+      spawn('taskkill', ['/F', '/T', '/PID', String(child.pid)], { stdio: 'ignore' })
+        .on('error', () => {});
+    } catch {}
+  }
   setTimeout(() => { try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} }, 1500);
 }
 
