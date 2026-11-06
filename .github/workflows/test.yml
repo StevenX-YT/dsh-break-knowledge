@@ -13,7 +13,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # 端到端测试用全局 WebSocket（Node 22+ 才有）
+          node-version: '22'
 
       - name: 判分内核单测
         run: node engine/test-grade.mjs
@@ -36,25 +37,25 @@ jobs:
           grep -q "study-data" /tmp/lesson.html || { echo "缺少内嵌数据"; exit 1; }
           echo "OK"
 
-  # 端到端测试需要真实浏览器，单独跑，失败不阻塞合并
   e2e:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
+
       - run: node engine/render.mjs samples/gaoshu-p73-78.json /tmp/lesson.html
+
       - name: 探测浏览器
         run: |
-          echo "--- 常见路径 ---"
           for p in /usr/bin/google-chrome /usr/bin/google-chrome-stable /opt/google/chrome/chrome /usr/bin/chromium /usr/bin/chromium-browser /snap/bin/chromium; do
             [ -x "$p" ] && echo "FOUND $p"
           done
-          echo "--- which ---"
-          which google-chrome chromium chromium-browser 2>/dev/null || echo "none in PATH"
           CHROME=$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || echo "")
           if [ -n "$CHROME" ]; then echo "CHROME_PATH=$CHROME" >> $GITHUB_ENV; echo "using $CHROME"; fi
-      - name: 端到端（需要 Chrome/Edge）
+
+      - name: 端到端
         run: node engine/test-browser.mjs /tmp/lesson.html
